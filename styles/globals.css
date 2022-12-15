@@ -1,22 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Alata&family=DM+Sans:wght@500&family=Inter:wght@400;500;700&family=Josefin+Sans:wght@300&family=Lobster&family=Orbitron:wght@800&family=Righteous&family=Shadows+Into+Light&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Alata&family=DM+Sans:wght@500&family=Inter:wght@400;500;700&family=Josefin+Sans:wght@300&family=Lobster&family=Orbitron:wght@800&family=Righteous&family=Shadows+Into+Light&display=swap'); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 @layer components {
 	.item {
-		@apply mx-2 group-hover:border-b group-hover:border-blue-50;
+		@apply mx-2 group-hover:border-b group-hover:border-blue-50 font-Orbitron;
 	}
-	.heder-text {
-		@apply max-w-lg mt-32 mb-32 p-4 font-sans text-4xl text-white uppercase border-2 md:p-10 md:m-32 md:mx-0 md:text-6xl;
+	.header-text {
+		@apply max-w-lg mt-32 mb-32 p-4 text-4xl text-white uppercase border-2 md:p-10 md:m-32 md:mx-0 md:text-6xl font-Josefin;
+	}
+	.nav-animation {
+		@apply ease-in-out duration-300;
 	}
 }
-
-#hero {
-	background-image: url('../public/mobile.jpg');
+/* #hero {
+	background-image: url('../public/wide.jpg');
 	background-repeat: no-repeat;
-	background-size: cover;
-}
+} */
+
 .hamburger {
 	cursor: pointer;
 	width: 24px;
@@ -34,8 +37,6 @@
 	left: 0;
 	left: 0;
 	background: white;
-	transform: rotate(0);
-	transition: 0.5 ease-out;
 }
 .hamburger-middle {
 	transform: translateY(7px);
