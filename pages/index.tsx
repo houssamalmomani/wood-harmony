@@ -1,6 +1,8 @@
-import mg from '../public/1670522572050.jpg';
-import Header from '../components/layout/Header';
 import About from '../components/layout/About';
+import Category from '../components/categories/Category';
+import Head from 'next/head';
+import Layout from '../components/layout/Layout';
+import Footer from '../components/layout/Footer';
 
 const DUMMY = [
 	{
@@ -28,10 +30,19 @@ const DUMMY = [
 			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ipsa autem dolores corporis culpa vel pariatur id ipsum dolor commodi!',
 	},
 ];
+
 export default function Home() {
 	return (
 		<>
+			<Head>
+				<title>Wood Harmony</title>
+				<meta
+					name="description"
+					content=""
+				/>
+			</Head>
 			<About />
+			<Category />
 		</>
 	);
 }

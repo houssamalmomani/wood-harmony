@@ -10,37 +10,37 @@ const NavBar: React.FC = () => {
 	// };
 	return (
 		<>
-			<nav className='flex items-center justify-between font-bold text-white'>
-				<h1 className='font-Orbitron text-xl '>Wood Harmony</h1>
-				<div className='hidden h-10  md:flex md:space-x-8 font-alata '>
-					<div className='group '>
-						<Link href='/about'> About </Link>
-						<div className='item'></div>
+			<nav className=" flex items-center justify-between font-Alata font-bold text-white">
+				<h1 className="font-Orbitron text-xl ">Wood Harmony</h1>
+				<div className="hidden h-10  md:flex md:space-x-8 font-alata ">
+					<div className="group ">
+						<Link href="/"> Home </Link>
+						<div className="item"></div>
 					</div>
-					<div className='group '>
-						<Link href='/about'> Products </Link>
-						<div className='item'></div>
+					<div className="group ">
+						<Link href="/products"> Products </Link>
+						<div className="item"></div>
 					</div>
-					<div className='group '>
-						<Link href='/'> Custom </Link>
-						<div className='item'></div>
+					<div className="group ">
+						<Link href="/"> Custom </Link>
+						<div className="item"></div>
 					</div>
-					<div className='group '>
-						<Link href='/'> Contact </Link>
-						<div className='item'></div>
+					<div className="group ">
+						<Link href="/"> Contact </Link>
+						<div className="item"></div>
 					</div>
 				</div>
-				<div className='md:hidden'>
+				<div className="md:hidden">
 					<button
 						onClick={() => setNavbarOpen(!navbarOpen)}
-						type='button'
+						type="button"
 						className={`hover:animate-bounce z-40 block hamburger md:hidden focus:outline-none nav-animation ${
 							navbarOpen ? 'open' : 'close'
 						}`}
 					>
-						<span className='hamburger-top nav-animation' />
-						<span className='hamburger-middle nav-animation' />
-						<span className='hamburger-bottom nav-animation' />
+						<span className="hamburger-top nav-animation" />
+						<span className="hamburger-middle nav-animation" />
+						<span className="hamburger-bottom nav-animation" />
 					</button>
 				</div>
 			</nav>
@@ -48,42 +48,34 @@ const NavBar: React.FC = () => {
 				className={` z-30 absolute md:hidden top-0 bottom-0 left-0  flex-col self-end  w-full min-h-screen py-1 pt-20 pl-12  text-lg text-white uppercase bg-black 
 				${navbarOpen ? 'flex' : 'hidden'}`}
 			>
-				<ul className='space-y-3 '>
+				<ul className="space-y-3 ">
 					{' '}
 					<Link
-						className='hover:text-gray-400 '
-						href='/about'
+						className="hover:text-gray-400 "
+						href="/"
 					>
-						About
+						Home
 					</Link>
 					<li>
 						<Link
-							className='hover:text-gray-400 '
-							href='/'
+							className="hover:text-gray-400 "
+							href="/products"
 						>
 							Products
 						</Link>
 					</li>
 					<li>
 						<Link
-							className='hover:text-gray-400 '
-							href='#'
-						>
-							Events
-						</Link>
-					</li>
-					<li>
-						<Link
-							className='hover:text-gray-400'
-							href='#'
+							className="hover:text-gray-400"
+							href="#hero"
 						>
 							Custom
 						</Link>
 					</li>
 					<li>
 						<Link
-							className='hover:text-gray-400 '
-							href='#'
+							className="hover:text-gray-400 "
+							href="#"
 						>
 							Contact
 						</Link>

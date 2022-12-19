@@ -1,10 +1,12 @@
-import Header from './Header';
+import Hero from './Hero';
 import { ProviderProps } from '../models/InterFaces';
+import Footer from './Footer';
 const Layout: React.FC<ProviderProps> = (props) => {
 	return (
 		<>
-			<Header />
+			<Hero />
 			<main>{props.children}</main>
+			<Footer />
 		</>
 	);
 };
