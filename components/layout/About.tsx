@@ -1,15 +1,15 @@
 import Image from 'next/image';
-import about from '../../public/assets/mobile/img1.jpg';
+import about from '../../public/img5R.jpg';
 const About: React.FC = (props) => {
 	return (
-		<div className="    relative container flex flex-col max-w-6xl mx-auto my-32  px-6 text-gray-900 md:flex-row md:px-0">
+		<div className="    relative container flex flex-col max-w-6xl mx-auto my-52  px-1 text-gray-900 md:flex-row ">
 			{/* <div className='md:absolute bg-black opacity-60 bottom-0 top-0 w-full  '></div> */}
 			<div className=" relative  ">
 				<Image
 					className="   rounded-t-xl md:rounded-none"
 					src={about}
 					alt=""
-					width={700}
+					width={600}
 				/>
 			</div>
 			<div className=" top-48 pr-0 bg-white md:absolute md:right-0 md:py-20 md:pl-20 opacity-60 rounded-b-xl md:rounded-none dark:bg-slate-600">

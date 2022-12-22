@@ -1,33 +1,44 @@
 import About from '../components/layout/About';
 import Category from '../components/categories/Category';
 import Head from 'next/head';
-import Layout from '../components/layout/Layout';
-import Footer from '../components/layout/Footer';
+import CustomIt from '../components/layout/CustomIt';
+import Hero from '../components/layout/Hero';
 
 const DUMMY = [
 	{
-		id: 1,
-		title: 'woody necklace',
-		image:
-			'https://i.etsystatic.com/12328946/r/il/71f3ec/1362088570/il_794xN.1362088570_lmh2.jpg',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ipsa autem dolores corporis culpa vel pariatur id ipsum dolor commodi!',
+		id: '1',
+		title: 'hand',
+		image: '/img5.jpg',
+		category: 'hand-bracelets',
+		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
 	},
 	{
-		id: 2,
-		title: 'woody necklace',
-		image:
-			'https://i.etsystatic.com/12328946/r/il/71f3ec/1362088570/il_794xN.1362088570_lmh2.jpg',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ipsa autem dolores corporis culpa vel pariatur id ipsum dolor commodi!',
+		id: '2',
+		title: 'hand',
+		image: '/img1R.jpg',
+		category: 'hand-bracelets',
+		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
 	},
 	{
-		id: 3,
+		id: '3',
 		title: 'woody necklace',
-		image:
-			'https://i.etsystatic.com/12328946/r/il/71f3ec/1362088570/il_794xN.1362088570_lmh2.jpg',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ipsa autem dolores corporis culpa vel pariatur id ipsum dolor commodi!',
+		image: '/img6.jpg',
+		category: 'neck-laces',
+		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+	},
+	{
+		id: '4',
+		title: 'key chains',
+		image: '/img2.jpg',
+		category: 'key-chains',
+		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+	},
+	{
+		id: '5',
+		title: 'key chains',
+		image: '/img4.jpg',
+		category: 'key-chains',
+		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
 	},
 ];
 
@@ -41,8 +52,10 @@ export default function Home() {
 					content=""
 				/>
 			</Head>
+			<Hero />
 			<About />
 			<Category />
+			<CustomIt />
 		</>
 	);
 }

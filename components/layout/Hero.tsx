@@ -1,7 +1,9 @@
 import React from 'react';
-import NavBar from './NavBar';
+import NavBar from '../ui/NavBar';
 import Image from 'next/image';
-import bg from '../../public/assets/desktop/img3R.jpg';
+
+import bg from '../../public/assets/desktop/img3D.jpg';
+import bgM from '../../public/assets/desktop/img3.jpg';
 import Layout from './Layout';
 // export interface ProviderProps {
 // 	children?: React.ReactNode | undefined;
@@ -9,16 +11,24 @@ import Layout from './Layout';
 
 const Hero: React.FC = () => {
 	return (
-		<header className=" relative flex overflow-hidden shadow-2xl ">
+		<header className="relative flex overflow-hidden shadow-xl ">
 			<Image
-				className="object-cover "
+				className="hidden object-cover w-full md:block "
 				src={bg}
 				fill
 				alt="main pic"
 				priority
 			/>
-			<div className=" absolute bg-black opacity-40 bottom-0 top-0 w-full"></div>
-			<div className="z-10 container max-w-6xl mx-auto px-6 py-12">
+			<Image
+				className="object-cover w-full md:hidden"
+				src={bgM}
+				fill
+				alt="main pic"
+				priority
+			/>
+
+			<div className=" absolute bg-black opacity-40 dark:opacity-60 bottom-0 top-0 w-full" />
+			<div className="z-10 container max-w-6xl mx-auto  px-3 xl:px-0 py-8">
 				<NavBar />
 				<div className="header-text opacity-60 "> purely handmade</div>
 			</div>

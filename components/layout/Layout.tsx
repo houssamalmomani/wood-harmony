@@ -4,9 +4,10 @@ import Footer from './Footer';
 const Layout: React.FC<ProviderProps> = (props) => {
 	return (
 		<>
-			<Hero />
 			<main>{props.children}</main>
-			<Footer />
+			<div className="  ">
+				<Footer />
+			</div>
 		</>
 	);
 };
