@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Category from '../../components/categories/Category';
+import Categories from '../../components/categories/Categories';
 import NavBar from '../../components/ui/NavBar';
 import FixedNav from '../../components/ui/FixedNav';
 
@@ -14,7 +14,7 @@ export default function products() {
 				/>
 			</Head>
 			<FixedNav />
-			<Category />
+			<Categories />
 		</>
 	);
 }

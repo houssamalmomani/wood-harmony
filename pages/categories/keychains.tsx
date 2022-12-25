@@ -4,7 +4,6 @@ export default function keychains() {
 	return (
 		<>
 			<FixedNav />
-			<h1>keychains</h1>;
 		</>
 	);
 }

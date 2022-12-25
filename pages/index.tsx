@@ -1,5 +1,5 @@
 import About from '../components/layout/About';
-import Category from '../components/categories/Category';
+import Categories from '../components/categories/Categories';
 import Head from 'next/head';
 import CustomIt from '../components/layout/CustomIt';
 import Hero from '../components/layout/Hero';
@@ -54,7 +54,7 @@ export default function Home() {
 			</Head>
 			<Hero />
 			<About />
-			<Category />
+			<Categories />
 			<CustomIt />
 		</>
 	);

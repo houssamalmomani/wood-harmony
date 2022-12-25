@@ -30,9 +30,6 @@ module.exports = {
 
 			Righteous: ['Righteous'],
 		},
-		letterSpacing: {
-			widest: '.3em',
-		},
 	},
 	plugins: [],
 };

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
-const DarkBtn: React.FC = () => {
+const DarkModeBtn: React.FC = () => {
 	const { systemTheme, theme, setTheme } = useTheme();
 	const [mounted, setMounted] = useState(false);
 	useEffect(() => {
@@ -39,7 +39,7 @@ const DarkBtn: React.FC = () => {
 		}
 	};
 
-	return <div>{themeChangerHandler()}</div>;
+	return <div className="animate-pulse">{themeChangerHandler()}</div>;
 };
 
-export default DarkBtn;
+export default DarkModeBtn;

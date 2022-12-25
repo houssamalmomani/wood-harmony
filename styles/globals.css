@@ -6,29 +6,15 @@
 
 @layer base {
 	h5 {
-		@apply absolute px-6 duration-200 w-52 bottom-4 md:bottom-8 
+		@apply text-xl md:text-2xl absolute px-6 duration-200 w-52 bottom-4 md:bottom-8 
 		md:px-10 group-hover:scale-110 group-hover:text-black;
 	}
 }
 @layer components {
-	.items-container {
-		@apply flex flex-col justify-between items-center gap-2 w-full 
-		text-2xl md:text-4xl text-white  sm:flex-row md:space-y-0 lg:space-x-8;
-	}
-	.item {
-		@apply mx-2 group-hover:border-b group-hover:border-blue-50;
+	.header-text {
+		@apply max-w-lg mt-32 mb-32 p-4 text-4xl text-white border-2 border-black md:p-10 md:m-32 md:mx-0 md:text-6xl font-Josefin;
 	}
 
-	.header-text {
-		@apply max-w-lg mt-32 mb-32 p-4 text-4xl text-white uppercase border-2 md:p-10 md:m-32 md:mx-0 md:text-6xl font-Josefin;
-	}
-	.category-gradient {
-		@apply absolute top-0 bottom-0 right-0 left-0 bg-gradient-to-b 
-		from-transparent to-gray-900 group-hover:from-gray-50 group-hover:to-white group-hover:opacity-70;
-	}
-	.category {
-		@apply relative overflow-hidden sm:w-1/3;
-	}
 	.nav-animation {
 		@apply ease-in-out duration-300;
 	}
@@ -84,4 +70,36 @@
 .svg {
 	filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg)
 		brightness(118%) contrast(119%);
+}
+
+/* ANIMATION */
+.move-in-left {
+	animation: moveInLeft 1s ease-out;
+}
+.move-in-bottom {
+	animation: moveInBottom 1s ease-out;
+}
+
+@keyframes moveInLeft {
+	0% {
+		opacity: 0;
+		transform: translateX(-100%);
+	}
+	80% {
+		transform: translateX(10px);
+	}
+	100% {
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+@keyframes moveInBottom {
+	0% {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	100% {
+		opacity: 1;
+		transform: translate(0);
+	}
 }

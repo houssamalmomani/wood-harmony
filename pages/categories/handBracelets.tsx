@@ -4,7 +4,6 @@ export default function handBracelets() {
 	return (
 		<>
 			<FixedNav />
-			<h1>hand bracelets</h1>;
 		</>
 	);
 }
