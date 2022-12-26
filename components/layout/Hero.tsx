@@ -5,7 +5,7 @@ import bg from '../../public/FB_IMG_1671806012184.jpg';
 
 const Hero: React.FC = () => {
 	return (
-		<header className="relative flex overflow-hidden shadow-xl overscroll-y-contain ">
+		<header className="relative flex overflow-hidden shadow-xl ">
 			<Image
 				className=" object-cover block "
 				src={bg}

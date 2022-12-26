@@ -5,7 +5,7 @@ const Layout: React.FC<ProviderProps> = (props) => {
 	return (
 		<>
 			<main>{props.children}</main>
-			<div className=" overflow-hidden ">
+			<div className="  ">
 				<Footer />
 			</div>
 		</>

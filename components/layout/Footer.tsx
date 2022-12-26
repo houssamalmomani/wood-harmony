@@ -2,7 +2,6 @@ import Image, { StaticImageData } from 'next/image';
 import instagram from '../../public/assets/icon-instagram.svg';
 import facebook from '../../public/assets/icon-facebook.svg';
 import whatsapp from '../../public/icon-whatsapp.svg';
-import Link from 'next/link';
 
 const Footer: React.FC = () => {
 	const icons: (string | StaticImageData)[][] = [
@@ -12,10 +11,7 @@ const Footer: React.FC = () => {
 	const iconsArray = (
 		<>
 			{icons.map(([icon, url, id]) => (
-				<span
-					key={`${id}`}
-					className=""
-				>
+				<span key={`${id}`}>
 					<a href={`${url}`}>
 						<Image
 							src={icon}
@@ -26,9 +22,12 @@ const Footer: React.FC = () => {
 			))}
 		</>
 	);
+
+	let date: string = new Date().getFullYear().toString();
+
 	return (
 		<>
-			<div className=" bg-black py-5 md:py-10">
+			<div className=" bg-gray-800  md:py-10">
 				<div className="container max-w-7xl mx-auto  flex md:flex-row flex-col md:justify-between justify-center items-center md:items-stretch md:px-2">
 					<div className="text-white font-Orbitron font-extrabold text-xl my-10">
 						<h1>Wood Harmony</h1>
@@ -37,7 +36,7 @@ const Footer: React.FC = () => {
 						<div className="flex gap-8">{iconsArray}</div>
 
 						<p className=" text-slate-400 font-Josefin  my-2 font-bold text-center">
-							2023 &#169; Wood Harmony. All Rights Reserved
+							{date} &#169; Wood Harmony. All Rights Reserved
 						</p>
 					</div>
 				</div>
