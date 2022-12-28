@@ -12,7 +12,7 @@ const Categories: React.FC<ProviderProps> = () => {
 				{categoriesData.map(([title, url, image, imageM]) => (
 					<div
 						key={`${title}`}
-						className="group overflow-hidden md:w-1/3 shadow-2xl relative rounded-lg md:rounded-none "
+						className="group overflow-hidden md:w-1/3 shadow-2xl relative rounded-lg md:rounded-none"
 					>
 						<Link
 							href={`${url}`}

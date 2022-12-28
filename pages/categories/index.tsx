@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Categories from '../../components/categories/Categories';
-import NavBar from '../../components/ui/NavBar';
 import FixedNav from '../../components/ui/FixedNav';
 
 export default function products() {
@@ -14,7 +13,9 @@ export default function products() {
 				/>
 			</Head>
 			<FixedNav />
-			<Categories />
+			<div className="md:my-64">
+				<Categories />
+			</div>
 		</>
 	);
 }

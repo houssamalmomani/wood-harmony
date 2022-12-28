@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '../ui/NavBar';
 import Image from 'next/image';
-import bg from '../../public/FB_IMG_1671806012184.jpg';
+import bg from '../../public/FB_IMG_1671805987599.jpg';
 
 const Hero: React.FC = () => {
 	return (
@@ -17,7 +17,6 @@ const Hero: React.FC = () => {
 			<div className="z-10 container max-w-7xl mx-auto  px-3 xl:px-0 py-8">
 				<NavBar />
 				<div className="header-text opacity-50 uppercase move-in-left  duration-300">
-					{' '}
 					Purely Handmade
 				</div>
 			</div>
