@@ -1,22 +1,35 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Card from '../ui/Card';
-import { itemsProps } from './ProductList';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const ProductItem: React.FC<itemsProps> = (props) => {
+const ProductItem: React.FC<{
+	id: string;
+	image: StaticImageData[];
+	title: string;
+	description: string;
+	category: string;
+	price: string;
+}> = (props) => {
+	const router = useRouter();
+	const ProductsDetailsHandler = () => {
+		router.push('/' + props.id);
+	};
 	return (
 		<Card>
-			<Link
-				className="max-sm:rounded-lg relative group  "
-				href={''}
+			<div
+				className="max-sm:rounded-lg relative group"
+				role="button"
+				onClick={ProductsDetailsHandler}
 			>
 				<li className="max-sm:rounded-lg hover:text-gray-500  ">
 					<div className="overflow-hidden">
 						<Image
-							src={props.image}
+							src={props.image[0]}
 							alt={props.title}
 							className="max-sm:rounded-t-lg group-hover:scale-150 duration-200 "
 							priority
+							width={500}
+							height={500}
 						/>
 					</div>
 					<div className="p-4 ">
@@ -28,7 +41,7 @@ const ProductItem: React.FC<itemsProps> = (props) => {
 						</p>
 					</div>
 				</li>
-			</Link>
+			</div>
 		</Card>
 	);
 };

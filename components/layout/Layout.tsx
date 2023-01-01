@@ -4,7 +4,7 @@ import Footer from './Footer';
 const Layout: React.FC<ProviderProps> = (props) => {
 	return (
 		<>
-			<main>{props.children}</main>
+			<main className="overflow-hidden">{props.children}</main>
 			<div className="  ">
 				<Footer />
 			</div>

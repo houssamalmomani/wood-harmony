@@ -1,20 +1,8 @@
-import React from 'react';
 import { StaticImageData } from 'next/image';
 import ProductItem from './ProductItem';
+import { typeItems } from '../../pages/all-products';
 
-export type itemsProps = {
-	[x: string]: string | StaticImport;
-	items: {
-		id: string;
-		image: StaticImageData;
-		title: string;
-		category: string;
-		description: string;
-		price: string;
-	}[];
-};
-
-const ProductsList: React.FC<itemsProps> = (props) => {
+const ProductsList: React.FC<{ items: typeItems }> = (props) => {
 	return (
 		<ul
 			className="	my-32 grid grid-col-1 
@@ -35,7 +23,6 @@ const ProductsList: React.FC<itemsProps> = (props) => {
 					description={item.description}
 					category={item.category}
 					price={item.price}
-					items={[]}
 				/>
 			))}
 		</ul>

@@ -36,7 +36,7 @@ const NavBar: React.FC = () => {
 				<Cart />
 				<h1
 					className="move-in-bottom font-Orbitron text-slate-200
-							   md:text-3xl text-lg"
+							   md:text-3xl text-md"
 				>
 					Wood Harmony
 				</h1>

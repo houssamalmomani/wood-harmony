@@ -1,12 +1,11 @@
 import Image from 'next/image';
-import { ProviderProps } from '../models/InterFaces';
 import Link from 'next/link';
 import SeeMore from '../ui/SeeMore';
 import CardCat from '../ui/CardCat';
 import categoriesData from './CategoriesData';
 
-const Categories: React.FC<ProviderProps> = () => {
-	const navItemsHandler = (
+const Categories: React.FC = () => {
+	const categoryData = (
 		<>
 			<CardCat>
 				{categoriesData.map(([title, url, image, imageM]) => (
@@ -32,7 +31,7 @@ const Categories: React.FC<ProviderProps> = () => {
 							<div
 								className="absolute top-0 bottom-0 right-0 left-0 bg-gradient-to-b 
 		                    from-transparent to-black group-hover:from-gray-50 group-hover:to-white 
-							group-hover:opacity-70 rounded-lg md:rounded-none"
+							group-hover:opacity-70 rounded-lg md:rounded-none group-hover:animate-pulse"
 							/>
 							<SeeMore />
 							<h5>{`${title}`}</h5>
@@ -50,7 +49,7 @@ const Categories: React.FC<ProviderProps> = () => {
 					Our Products
 				</h2>
 			</div>
-			{navItemsHandler}
+			{categoryData}
 		</div>
 	);
 };

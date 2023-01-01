@@ -28,14 +28,28 @@ const Footer: React.FC = () => {
 	return (
 		<>
 			<div className=" bg-gray-800  md:py-10">
-				<div className="container max-w-7xl mx-auto  flex md:flex-row flex-col md:justify-between justify-center items-center md:items-stretch md:px-2">
-					<div className="text-white font-Orbitron font-extrabold text-xl my-10">
+				<div
+					className="container max-w-7xl mx-auto 
+				 				flex md:flex-row flex-col md:justify-between 
+				 				justify-center items-center md:px-2"
+				>
+					<div
+						className="text-white font-Orbitron md:text-2xl 
+									font-extrabold text-sm my-8"
+					>
 						<h1>Wood Harmony</h1>
 					</div>
-					<div className="   flex flex-col border-t-2  border-slate-400 md:border-t-0 py-5 items-center gap-5 ">
+					<hr className=" w-full md:hidden" />
+					<div
+						className="flex flex-col 
+						md:border-t-0 py-5 items-center gap-5 "
+					>
 						<div className="flex gap-8">{iconsArray}</div>
 
-						<p className=" text-slate-400 font-Josefin  my-2 font-bold text-center">
+						<p
+							className="text-slate-400 font-Josefin 
+										text-xs  text-center"
+						>
 							{date} &#169; Wood Harmony. All Rights Reserved
 						</p>
 					</div>
