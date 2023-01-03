@@ -11,11 +11,12 @@ const Categories: React.FC = () => {
 				{categoriesData.map(([title, url, image, imageM]) => (
 					<div
 						key={`${title}`}
-						className="group overflow-hidden md:w-1/3 shadow-2xl relative rounded-lg md:rounded-none"
+						className="group overflow-hidden md:w-1/3 drop-shadow-lg shadow-sm
+									relative rounded-lg md:rounded-none"
 					>
 						<Link
 							href={`${url}`}
-							className="hover:text-gray-400 flex "
+							className="hover:text-gray-400 flex  "
 						>
 							<Image
 								className="hidden duration-200 md:block group-hover:scale-110 "
@@ -24,7 +25,7 @@ const Categories: React.FC = () => {
 								width={500}
 							/>
 							<Image
-								className="  md:hidden group-hover:scale-110 duration-200 rounded-lg"
+								className="  md:hidden group-hover:scale-110 duration-200 rounded-lg "
 								src={imageM}
 								alt=""
 							/>
@@ -43,9 +44,9 @@ const Categories: React.FC = () => {
 	);
 
 	return (
-		<div className=" max-w-7xl mx-auto my-32 text-gray-900 px-1 xl:px-0 overflow-hidden">
+		<div className=" max-w-7xl mx-auto my-40 text-gray-900 px-1 xl:px-0 overflow-hidden">
 			<div className="flex justify-center mb-12 ">
-				<h2 className="text-3xl dark:text-white text-center  md:text-left md:text-4xl font-Josefin -tracking-tight">
+				<h2 className="text-3xl dark:text-white text-center  md:text-left md:text-5xl font-Josefin -tracking-tight">
 					Our Products
 				</h2>
 			</div>

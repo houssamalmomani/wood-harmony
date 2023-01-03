@@ -39,7 +39,7 @@ const DarkModeBtn: React.FC = () => {
 		}
 	};
 
-	return <div className="animate-pulse">{themeChangerHandler()}</div>;
+	return <div className="animate-bounce">{themeChangerHandler()}</div>;
 };
 
 export default DarkModeBtn;

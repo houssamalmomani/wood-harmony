@@ -22,7 +22,7 @@ const ProductItem: React.FC<{
 				onClick={ProductsDetailsHandler}
 			>
 				<li className="max-sm:rounded-lg hover:text-gray-500  ">
-					<div className="overflow-hidden">
+					<div className="overflow-hidden drop-shadow-lg">
 						<Image
 							src={props.image[0]}
 							alt={props.title}

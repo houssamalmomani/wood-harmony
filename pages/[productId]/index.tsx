@@ -1,5 +1,3 @@
-import ProductItem from '../../components/products/ProductItem';
-import FixedNav from '../../components/ui/FixedNav';
 import ProductDetails from '../../components/products/ProductDetails';
 import hand from '../../public/handb2.jpg';
 import neck from '../../public/neck1.jpg';
@@ -9,7 +7,6 @@ import { StaticImageData } from 'next/image';
 function ProductId(props: { items: { image: StaticImageData[] } }) {
 	return (
 		<>
-			<FixedNav />
 			<ProductDetails images={props.items.image} />
 		</>
 	);

@@ -1,13 +1,11 @@
-import Hero from './Hero';
-import { ProviderProps } from '../models/InterFaces';
 import Footer from './Footer';
-const Layout: React.FC<ProviderProps> = (props) => {
+import NavBar from '../ui/NavBar';
+const Layout: React.FC<any> = (props) => {
 	return (
 		<>
+			<NavBar />
 			<main className="overflow-hidden">{props.children}</main>
-			<div className="  ">
-				<Footer />
-			</div>
+			<Footer />
 		</>
 	);
 };

@@ -1,9 +1,8 @@
 import { MongoClient } from 'mongodb';
-import FixedNav from '../../components/ui/FixedNav';
 import ProductsList from '../../components/products/ProductList';
 export async function getStaticProps() {
 	const client = await MongoClient.connect(
-		'mongodb+srv://Houssam:@cluster0.qat5w5x.mongodb.net/items?retryWrites=true&w=majority'
+		'mongodb+srv://Houssam:pQmYqcQBSyHwcGa8@cluster0.qat5w5x.mongodb.net/items?retryWrites=true&w=majority'
 	);
 	const db = client.db();
 
@@ -35,7 +34,6 @@ export default function handBracelets(props: any) {
 			<div className="md:my-64 max-w-7xl mx-auto">
 				<ProductsList items={props.items} />
 			</div>
-			<FixedNav />
 		</>
 	);
 }

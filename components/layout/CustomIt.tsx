@@ -33,7 +33,7 @@ const CustomIt: React.FC<{}> = () => {
 					key={`${id}`}
 				>
 					<Image
-						className="gallery "
+						className="w-full h-full object-cover "
 						src={image}
 						alt=""
 					/>
@@ -43,10 +43,10 @@ const CustomIt: React.FC<{}> = () => {
 	);
 
 	return (
-		<section className=" max-w-7xl mx-auto mt-32 mb-1 lg:mb-2 px-1  ">
+		<section className=" max-w-7xl mx-auto mt-40 mb-1 lg:mb-2 px-1  ">
 			<div className="  flex justify-center mb-12 ">
 				{' '}
-				<h1 className="-tracking-tight text-3xl dark:text-white text-center  md:text-left md:text-4xl font-Josefin">
+				<h1 className="-tracking-tight text-3xl dark:text-white text-center  md:text-left md:text-5xl font-Josefin">
 					Express yourself with customizables
 				</h1>
 			</div>

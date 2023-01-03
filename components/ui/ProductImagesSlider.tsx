@@ -1,30 +1,35 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
-import { Pagination, EffectCards } from 'swiper';
-import 'swiper/css/pagination';
-import Image from 'next/image';
-import { Autoplay } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
 
-const ProductImagesSlider: React.FC<any> = (props) => {
+import { Pagination, EffectCards, FreeMode, Navigation, Thumbs } from 'swiper';
+import 'swiper/css/pagination';
+import Image, { StaticImageData } from 'next/image';
+import { useState } from 'react';
+
+const ProductImagesSlider: React.FC<
+	{ items: { images: StaticImageData[] } } | any
+> = (props) => {
 	return (
 		<div className="">
 			<Swiper
-				pagination={props.pagination}
-				autoplay={props.autoplay}
-				effect={'cards'}
-				modules={[EffectCards, Autoplay, Pagination]}
-				grabCursor={true}
-				className=" rounded-lg mx-auto"
+				pagination={true}
+				spaceBetween={10}
+				modules={[Pagination]}
 			>
-				{props.images.map((item: string, index: number) => (
-					// eslint-disable-next-line react/jsx-key
-					<SwiperSlide className="rounded-lg ">
+				{props.images.map((item: any, index: any) => (
+					<SwiperSlide
+						key={index}
+						className="rounded-lg "
+					>
 						<Image
-							key={props.id}
 							src={item}
 							alt="product images"
-							className=" rounded-lg"
+							className=" rounded-lg "
 						/>
 					</SwiperSlide>
 				))}
