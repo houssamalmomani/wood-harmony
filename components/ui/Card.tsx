@@ -1,6 +1,4 @@
-import { ProviderProps } from '../models/InterFaces';
-
-const Card: React.FC<ProviderProps> = (props) => {
+const Card: React.FC<any> = (props) => {
 	return (
 		<div className="max-sm:rounded-lg overflow-hidden drop-shadow-2xl ">
 			{props.children}

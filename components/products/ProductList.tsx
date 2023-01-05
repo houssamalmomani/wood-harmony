@@ -2,7 +2,7 @@ import { StaticImageData } from 'next/image';
 import ProductItem from './ProductItem';
 import { typeItems } from '../../pages/all-products';
 
-const ProductsList: React.FC<{ items: typeItems }> = (props) => {
+const ProductsList: React.FC<any> = (props) => {
 	return (
 		<ul
 			className="	my-32 grid grid-col-1 
@@ -14,7 +14,7 @@ const ProductsList: React.FC<{ items: typeItems }> = (props) => {
 						max-[320px]:grid-cols-1 
             "
 		>
-			{props.items.map((item) => (
+			{props.items.map((item: any) => (
 				<ProductItem
 					key={item.id}
 					id={item.id}

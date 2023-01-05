@@ -2,14 +2,7 @@ import Image, { StaticImageData } from 'next/image';
 import Card from '../ui/Card';
 import { useRouter } from 'next/router';
 
-const ProductItem: React.FC<{
-	id: string;
-	image: StaticImageData[];
-	title: string;
-	description: string;
-	category: string;
-	price: string;
-}> = (props) => {
+const ProductItem: React.FC<any> = (props) => {
 	const router = useRouter();
 	const ProductsDetailsHandler = () => {
 		router.push('/' + props.id);

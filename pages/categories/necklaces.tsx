@@ -1,29 +1,18 @@
-import { MongoClient } from 'mongodb';
+import { getDocs, query, where } from 'firebase/firestore';
 import ProductsList from '../../components/products/ProductList';
+import { itemsCol } from '../api/products';
 export async function getStaticProps() {
-	const client = await MongoClient.connect(
-		'mongodb+srv://Houssam:pQmYqcQBSyHwcGa8@cluster0.qat5w5x.mongodb.net/items?retryWrites=true&w=majority'
-	);
-	const db = client.db();
-
-	const itemsCollection = db.collection('items');
-
-	const items = await itemsCollection.find().toArray();
-	client.close();
+	const q = query(itemsCol, where('category', '==', 'neck-laces'));
+	const items = await getDocs(q);
 	return {
 		props: {
-			items: items
-				.filter((item) => {
-					return item.category === 'neck-laces';
-				})
-				.map((item) => ({
-					id: item._id.toString(),
-					title: item.title,
-					image: item.image,
-					category: item.category,
-					description: item.description,
-					price: item.price,
-				})),
+			items: items.docs.map((doc: any) => ({
+				id: doc.id,
+				description: doc.data().description,
+				image: doc.data().image,
+				price: doc.data().price,
+				title: doc.data().title,
+			})),
 		},
 		// revalidate: 5,
 	};

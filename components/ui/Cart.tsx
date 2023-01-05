@@ -25,7 +25,7 @@ const Cart: React.FC = () => {
 						alt=""
 						width={100}
 						height={100}
-						className={`${overlays ? ' animate-pulse ' : ' '}`}
+						className={`${overlays ? ' animate-pulse ' : ' animate-none '}`}
 					/>
 					<div className=" absolute top-2 left-3 font-Orbitron svg text-xs">
 						{numberOfCartItems}

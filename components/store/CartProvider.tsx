@@ -6,7 +6,7 @@ const defaultCartState = {
 	items: [],
 	totalAmount: 0,
 };
-const cartReducer = (state, action) => {
+const cartReducer = (state: any, action: any) => {
 	if (action.type === 'ADD') {
 		const updatedItems = state.items.concat(action.item);
 		const updatedTotalAmount =
@@ -24,11 +24,11 @@ const CartProvider: React.FC<any> = (props) => {
 		cartReducer,
 		defaultCartState
 	);
-	const addItemToCartHandler = (item) => {
+	const addItemToCartHandler = (item: string) => {
 		dispatchCartAction({ type: 'ADD', item: item });
 	};
 
-	const removeItemFromCartHandler = (id) => {
+	const removeItemFromCartHandler = (id: string) => {
 		dispatchCartAction({ type: 'REMOVE', id: id });
 	};
 	const cartContext = {

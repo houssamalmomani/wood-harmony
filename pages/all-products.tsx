@@ -1,36 +1,28 @@
-import { MongoClient } from 'mongodb';
 import Head from 'next/head';
 import ProductsList from '../components/products/ProductList';
-import { StaticImageData } from 'next/image';
+import { snapshot } from './api/products';
 
 export type typeItems = {
 	id: string;
-	image: StaticImageData[];
+	image: string;
 	title: string;
 	category: string;
 	description: string;
-	price: string;
+	price: number;
 }[];
 
 export async function getStaticProps() {
-	const client = await MongoClient.connect(
-		'mongodb+srv://Houssam:pQmYqcQBSyHwcGa8@cluster0.qat5w5x.mongodb.net/items?retryWrites=true&w=majority'
-	);
-	const db = client.db();
+	const items = await snapshot;
 
-	const itemsCollection = db.collection('items');
-
-	const items = await itemsCollection.find().toArray();
-	client.close();
 	return {
 		props: {
-			items: items.map((item) => ({
-				id: item._id.toString(),
-				title: item.title,
-				image: item.image,
-				category: item.category,
-				description: item.description,
-				price: item.price,
+			items: items.docs.map((doc) => ({
+				id: doc.id,
+				category: doc.data().category,
+				description: doc.data().description,
+				image: doc.data().image,
+				price: doc.data().price,
+				title: doc.data().title,
 			})),
 		},
 		// revalidate: 5,
@@ -38,6 +30,7 @@ export async function getStaticProps() {
 }
 console.log('data');
 export default function AllProducts(props: { items: typeItems }) {
+	console.log(props.items);
 	return (
 		<>
 			<Head>
