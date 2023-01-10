@@ -15,7 +15,6 @@ function MyDocument(props) {
 				<link
 					rel="preconnect"
 					href="https://fonts.gstatic.com"
-					crossorigin
 				/>
 			</Head>
 			<body>

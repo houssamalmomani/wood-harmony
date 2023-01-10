@@ -1,22 +1,35 @@
-import { useContext } from 'react';
-import CartContext from '../store/cart-context';
+import { useContext, useEffect } from 'react';
 import Image from 'next/image';
 import { useState } from 'react';
 import CartForm from '../cart/CartForm';
+import CartContext from '../store/cart-context';
 
 const Cart: React.FC = () => {
+	const [btnBump, setBtnBump] = useState(false);
 	const cartCtx = useContext(CartContext);
+	const [overlays, setOverlays] = useState<boolean>(false);
 
-	const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
+	const { items } = cartCtx;
+	const numberOfCartItems = items.reduce((curNumber: number, item: any) => {
 		return curNumber + item.amount;
 	}, 0);
 
-	const [overlays, setOverlays] = useState<boolean>(false);
+	const btnClass = btnBump ? 'bump' : '';
+	useEffect(() => {
+		if (items.length > 0) setBtnBump(true);
+
+		const timer = setTimeout(() => {
+			setBtnBump(false);
+		}, 300);
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [items]);
 
 	return (
 		<>
 			<button
-				className=" z-30 font-extrabold rounded-full w-10 text-black relative"
+				className={`z-30 font-extrabold rounded-full w-10 text-black relative ${btnClass}`}
 				onClick={() => setOverlays(!overlays)}
 			>
 				<div>

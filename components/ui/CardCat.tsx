@@ -1,6 +1,4 @@
-import { ProviderProps } from '../models/InterFaces';
-
-const CardCat: React.FC<ProviderProps> = (props) => {
+const CardCat: React.FC<any> = (props) => {
 	return (
 		<>
 			<div

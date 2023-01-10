@@ -1,8 +1,14 @@
-import { StaticImageData } from 'next/image';
 import ProductItem from './ProductItem';
 import { typeItems } from '../../pages/all-products';
-
-const ProductsList: React.FC<any> = (props) => {
+export type typeDetails = {
+	category: string;
+	title: string;
+	image: string[];
+	description: string;
+	price: number;
+	id: string;
+};
+const ProductsList: React.FC<typeItems> = (props) => {
 	return (
 		<ul
 			className="	my-32 grid grid-col-1 
@@ -14,15 +20,10 @@ const ProductsList: React.FC<any> = (props) => {
 						max-[320px]:grid-cols-1 
             "
 		>
-			{props.items.map((item: any) => (
+			{props.items.map((item: typeDetails) => (
 				<ProductItem
 					key={item.id}
-					id={item.id}
-					image={item.image}
-					title={item.title}
-					description={item.description}
-					category={item.category}
-					price={item.price}
+					{...item}
 				/>
 			))}
 		</ul>

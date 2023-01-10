@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import Btn from '../components/ui/Btn';
+import { useRouter } from 'next/router';
 
 function NotFound() {
+	const router = useRouter();
 	const goBackHandler = () => {
-		return <Link href={'/'}></Link>;
+		router.push('/');
 	};
 	return (
 		<>

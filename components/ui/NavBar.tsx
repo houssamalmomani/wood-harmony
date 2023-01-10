@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import DarkModeBtn from './DarkModeBtn';
-import Cart from './Cart';
+import Cart from '../cart/Cart';
 
 const NavBar: React.FC = () => {
 	const [navbarOpen, setNavbarOpen] = useState<boolean>(false);
@@ -39,7 +39,7 @@ const NavBar: React.FC = () => {
 						<Cart />
 						<h1
 							className=" font-Orbitron text-slate-200
-						md:text-3xl text-md lg:pr-60"
+										md:text-3xl text-md lg:pr-60"
 						>
 							Wood Harmony
 						</h1>

@@ -1,6 +1,7 @@
 import { getDocs, query, where } from 'firebase/firestore';
 import ProductsList from '../../components/products/ProductList';
 import { itemsCol } from '../api/products';
+import { typeItems } from '../all-products';
 export async function getStaticProps() {
 	const q = query(itemsCol, where('category', '==', 'key-chains'));
 	const items = await getDocs(q);
@@ -17,7 +18,7 @@ export async function getStaticProps() {
 		// revalidate: 5,
 	};
 }
-export default function keychains(props: any) {
+export default function keychains(props: typeItems) {
 	return (
 		<>
 			<div className="md:my-64 max-w-7xl mx-auto">

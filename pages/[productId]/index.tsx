@@ -1,24 +1,17 @@
-import {
-	collection,
-	doc,
-	getDoc,
-	getDocs,
-	query,
-	where,
-} from 'firebase/firestore';
+import { doc, getDoc, getDocs } from 'firebase/firestore';
 import ProductDetails from '../../components/products/ProductDetails';
-import { db, itemsCol, snapshot } from '../api/products';
+import { db, snapshot } from '../api/products';
 import Head from 'next/head';
+import { typeDetails } from '../../components/products/ProductList';
 
 export async function getStaticPaths() {
-	const idItems = collection(db, 'items');
-	const items = await getDocs(idItems);
+	const idItems = await snapshot;
 
 	return {
-		paths: items.docs.map((item) => ({
+		paths: idItems.docs.map((item) => ({
 			params: { productId: item.id.toString() },
 		})),
-		fallback: true,
+		fallback: false,
 	};
 }
 
@@ -26,25 +19,29 @@ export async function getStaticProps(context: any) {
 	const productId: any = context.params.productId;
 	const select = doc(db, 'items', productId);
 	const q = await getDoc(select);
-	const items = q.data();
+	const singleItem = q.data();
 
 	return {
 		props: {
-			items,
+			singleItem,
+			productId,
 		},
 		// revalidate: 5,
 	};
 }
 
-function ProductId(props: { items: { image: any; title: string; id: any } }) {
-	console.log(props.items, 'ashdfja');
+function ProductId(props: { singleItem: typeDetails; productId: string }) {
+	console.log(props.singleItem, 'this is the single product that you return ');
 
 	return (
 		<>
 			<Head>
-				<title></title>
+				<title>{props.singleItem.title}</title>
 			</Head>
-			<ProductDetails items={props.items} />
+			<ProductDetails
+				item={props.singleItem}
+				id={props.productId}
+			/>
 		</>
 	);
 }

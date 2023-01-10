@@ -4,7 +4,7 @@ import bg from '../../public/img3.jpg';
 
 const Hero: React.FC = () => {
 	return (
-		<header className="  drop-shadow-lg ">
+		<header className="  drop-shadow-lg relative">
 			<Image
 				className=" object-cover  "
 				src={bg}

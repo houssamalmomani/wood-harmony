@@ -76,6 +76,9 @@
 .slide-down {
 	animation: slideDown 300ms ease-out forwards;
 }
+.bump {
+	animation: bump 300ms ease-out;
+}
 
 @keyframes moveInLeft {
 	0% {
@@ -106,5 +109,22 @@
 	}
 	to {
 		transform: translateY(0);
+	}
+}
+@keyframes bump {
+	0% {
+		transform: scale(1);
+	}
+	10% {
+		transform: scale(0.9);
+	}
+	30% {
+		transform: scale(1.1);
+	}
+	50% {
+		transform: scale(1.15);
+	}
+	100% {
+		transform: scale(1);
 	}
 }

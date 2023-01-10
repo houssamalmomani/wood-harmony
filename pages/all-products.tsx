@@ -3,13 +3,17 @@ import ProductsList from '../components/products/ProductList';
 import { snapshot } from './api/products';
 
 export type typeItems = {
-	id: string;
-	image: string;
-	title: string;
-	category: string;
-	description: string;
-	price: number;
-}[];
+	items: [
+		{
+			id: string;
+			image: string[];
+			title: string;
+			category: string;
+			description: string;
+			price: number;
+		}
+	];
+};
 
 export async function getStaticProps() {
 	const items = await snapshot;
@@ -28,8 +32,8 @@ export async function getStaticProps() {
 		// revalidate: 5,
 	};
 }
-console.log('data');
-export default function AllProducts(props: { items: typeItems }) {
+
+export default function AllProducts(props: typeItems) {
 	console.log(props.items);
 	return (
 		<>
@@ -41,7 +45,7 @@ export default function AllProducts(props: { items: typeItems }) {
 				/>
 			</Head>
 
-			<div className="my-64 max-w-7xl mx-auto">
+			<div className="my-32 max-w-7xl mx-auto">
 				<ProductsList items={props.items} />
 			</div>
 		</>
