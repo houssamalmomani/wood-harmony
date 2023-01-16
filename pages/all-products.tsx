@@ -45,9 +45,7 @@ export default function AllProducts(props: typeItems) {
 				/>
 			</Head>
 
-			<div className="my-32 max-w-7xl mx-auto">
-				<ProductsList items={props.items} />
-			</div>
+			<ProductsList items={props.items} />
 		</>
 	);
 }

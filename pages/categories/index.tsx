@@ -12,9 +12,7 @@ export default function products() {
 				/>
 			</Head>
 
-			<div className="md:my-64">
-				<Categories />
-			</div>
+			<Categories />
 		</>
 	);
 }

@@ -1,4 +1,4 @@
-import { doc, getDoc, getDocs } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import ProductDetails from '../../components/products/ProductDetails';
 import { db, snapshot } from '../api/products';
 import Head from 'next/head';

@@ -19,11 +19,5 @@ export async function getStaticProps() {
 	};
 }
 export default function necklaces(props: typeItems) {
-	return (
-		<>
-			<div className="md:my-64 max-w-7xl mx-auto ">
-				<ProductsList items={props.items} />
-			</div>
-		</>
-	);
+	return <ProductsList items={props.items} />;
 }

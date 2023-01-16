@@ -25,10 +25,18 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 	const cartItemAddHandler = (item: any, id: any) => {
 		cartCtx.addItem({ ...item, amount: 1, id: props.id });
 	};
+	const cartItemRemoveHandler = (id: string) => {
+		cartCtx.removeItem(id);
+	};
+
+	const { items } = cartCtx;
+	const amount: number =
+		items.find((item: any) => item.id === props.id)?.amount || 0;
+
 	return (
 		<div className="w-auto ">
 			<div
-				className="flex flex-col gap-10 items-center 
+				className="flex flex-col gap-0 items-center 
 				justify-center mb-10 mt-20 md:mt-32 max-w-xl mx-auto "
 			>
 				<h1 className=" font-Orbitron md:text-3xl text-xl">
@@ -69,11 +77,17 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 					</div>
 					<h2 className=" font-bold text-center">{props.item.description}</h2>
 				</div>
-
-				<Btn
-					title="Add To Cart"
-					onAdd={cartItemAddHandler.bind(null, props.item, props.item.id)}
-				/>
+				{amount === 0 ? (
+					<Btn
+						title="Add To Cart"
+						onAdd={cartItemAddHandler.bind(null, props.item, props.id)}
+					/>
+				) : (
+					<Btn
+						title="Remove"
+						onAdd={cartItemRemoveHandler.bind(null, props.id)}
+					/>
+				)}
 			</div>
 		</div>
 	);

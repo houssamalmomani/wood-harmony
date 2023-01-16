@@ -2,14 +2,13 @@ import Image from 'next/image';
 import Card from '../ui/Card';
 import { useRouter } from 'next/router';
 import { typeDetails } from './ProductList';
-import BtnCart from '../ui/BtnCart';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CartContext from '../store/cart-context';
 import BtnMin from '../ui/BtnMin';
+import BtnItem from '../ui/BtnItem';
 
 const ProductItem: React.FC<typeDetails> = (props) => {
 	const cartCtx = useContext(CartContext);
-
 	const addItemToCartHandler = (amount: number) => {
 		cartCtx.addItem({
 			id: props.id,
@@ -20,8 +19,29 @@ const ProductItem: React.FC<typeDetails> = (props) => {
 		});
 	};
 	const cartItemRemoveHandler = (id: string) => {
-		cartCtx.removeItem(id);
+		cartCtx.removeItem(props.id);
 	};
+	const { items } = cartCtx;
+
+	// useEffect(() => {
+	// 	localStorage.setItem('items', JSON.stringify(cartCtx.items));
+	// }, [cartCtx.items]);
+	// if (typeof window !== 'undefined') {
+	// 	// Perform localStorage action
+	// 	const items = localStorage.getItem('items');
+	// }
+	// useEffect(() => {
+	// 	localStorage.setItem('items', JSON.stringify(cartCtx.items));
+	// }, [cartCtx.addItem, cartCtx.removeItem]);
+	// useEffect(() => {
+	// 	// Perform localStorage action
+	// 	const items = localStorage.getItem('items');
+	// }, []);
+	// const items = window.localStorage.getItem('items');
+	// items ? JSON.parse(items) : [];
+
+	const amount =
+		cartCtx.items?.find((item: any) => item.id === props.id)?.amount || 0;
 
 	const router = useRouter();
 	const ProductsDetailsHandler = () => {
@@ -60,9 +80,11 @@ const ProductItem: React.FC<typeDetails> = (props) => {
 						<p className=" font-Josefin">{props.description}</p>
 						<p className="font-bold"> {`JOD ${props.price.toFixed(2)}`}</p>
 					</div>
-
-					<BtnCart onAdd={addItemToCartHandler.bind(null, 1)} />
-					<BtnMin onAdd={cartItemRemoveHandler.bind(null, props.id)} />
+					{amount === 0 ? (
+						<BtnItem onAdd={addItemToCartHandler.bind(null, 1)} />
+					) : (
+						<BtnMin onAdd={cartItemRemoveHandler.bind(null, props.id)} />
+					)}
 				</div>
 			</li>
 		</Card>

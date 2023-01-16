@@ -16,8 +16,8 @@ const NavBar: React.FC = () => {
 		<>
 			{navItems.map(([title, url]) => (
 				<Link
-					href={`${url}`}
-					key={`${title}`}
+					href={url}
+					key={title}
 					className="hover:text-gray-400 md:hover:text-white
 								 md:hover:border-b-2 border-white"
 					onClick={() => setNavbarOpen(!navbarOpen)}
@@ -33,8 +33,8 @@ const NavBar: React.FC = () => {
 			<div className="w-full bg-slate-900  dark:bg-slate-800 fixed top-0 z-40 bg-opacity-70 dark:bg-opacity-70">
 				<div className="  z-10 container max-w-7xl mx-auto  px-5 xl:px-0 md:py-8 py-4">
 					<nav
-						className="z-20 flex flex-row-reverse items-center 
-					justify-between font-Alata text-white"
+						className="z-30 flex flex-row-reverse items-center 
+									justify-between font-Alata text-white"
 					>
 						<Cart />
 						<h1
@@ -51,9 +51,9 @@ const NavBar: React.FC = () => {
 							<button
 								onClick={() => setNavbarOpen(!navbarOpen)}
 								type="button"
-								className={`z-40 block hamburger 
+								className={` block hamburger 
 							               md:hidden focus:outline-none nav-animation 
-										  ${navbarOpen ? 'open  animate-pulse' : 'close'}`}
+										  ${navbarOpen ? 'open  animate-pulse z-30' : 'close z-10'}`}
 							>
 								<span className="hamburger-top nav-animation" />
 								<span className="hamburger-middle nav-animation" />
@@ -62,7 +62,7 @@ const NavBar: React.FC = () => {
 						</div>
 					</nav>
 					<div
-						className={`z-30 absolute md:hidden top-0 bottom-0 bg-opacity-80
+						className={`z-10 absolute md:hidden top-0 bottom-0 bg-opacity-80
 									left-0 w-full min-h-screen py-1 pt-20 pl-12  
 									slide-down text-lg text-white uppercase bg-black 
 									${navbarOpen ? ' block' : 'hidden'}`}

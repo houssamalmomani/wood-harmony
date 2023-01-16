@@ -19,12 +19,5 @@ export async function getStaticProps() {
 	};
 }
 export default function handBracelets(props: typeItems) {
-	console.log(props.items, 'hand');
-	return (
-		<>
-			<div className="md:my-64 max-w-7xl mx-auto">
-				<ProductsList items={props.items} />
-			</div>
-		</>
-	);
+	return <ProductsList items={props.items} />;
 }

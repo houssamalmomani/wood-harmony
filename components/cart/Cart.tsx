@@ -3,20 +3,22 @@ import Image from 'next/image';
 import { useState } from 'react';
 import CartForm from '../cart/CartForm';
 import CartContext from '../store/cart-context';
+import BtnClose from '../ui/BtnClose';
 
 const Cart: React.FC = () => {
 	const [btnBump, setBtnBump] = useState(false);
-	const cartCtx = useContext(CartContext);
+
 	const [overlays, setOverlays] = useState<boolean>(false);
 
+	const cartCtx = useContext(CartContext);
 	const { items } = cartCtx;
-	const numberOfCartItems = items.reduce((curNumber: number, item: any) => {
+	const numberOfCartItems = items?.reduce((curNumber: number, item: any) => {
 		return curNumber + item.amount;
 	}, 0);
 
 	const btnClass = btnBump ? 'bump' : '';
 	useEffect(() => {
-		if (items.length > 0) setBtnBump(true);
+		if (items?.length > 0) setBtnBump(true);
 
 		const timer = setTimeout(() => {
 			setBtnBump(false);
@@ -28,28 +30,32 @@ const Cart: React.FC = () => {
 
 	return (
 		<>
-			<button
-				className={`z-30 font-extrabold rounded-full w-10 text-black relative ${btnClass}`}
-				onClick={() => setOverlays(!overlays)}
-			>
-				<div>
-					<Image
-						src="/cart2.png"
-						alt=""
-						width={100}
-						height={100}
-						className={`${overlays ? ' animate-pulse ' : ' animate-none '}`}
-					/>
-					<div className=" absolute top-2 left-3 font-Orbitron svg text-xs">
-						{numberOfCartItems}
+			{!overlays ? (
+				<button
+					className={` font-extrabold rounded-full w-10 text-black  relative ${btnClass}`}
+					onClick={() => setOverlays(!overlays)}
+				>
+					<div>
+						<Image
+							src="/cart2.png"
+							alt=""
+							width={100}
+							height={100}
+							className={`${numberOfCartItems > 0 && ' animate-pulse'}`}
+						/>
+						<div className=" absolute top-2 left-3 font-Orbitron svg text-xs">
+							{numberOfCartItems}
+						</div>
 					</div>
-				</div>
-			</button>
+				</button>
+			) : (
+				<BtnClose close={() => setOverlays(!overlays)} />
+			)}
 			<div
-				className={` z-20 fixed  top-0 bottom-0 
-			left-0 w-full min-h-screen py-1 pt-20 pl-12 slide-down
-			text-lg text-white uppercase bg-black bg-opacity-80
-			${overlays ? ' fixed' : 'hidden'}`}
+				className={`  fixed  top-0 bottom-0  
+							left-0 w-full min-h-screen slide-down
+							 bg-black bg-opacity-70
+							${overlays ? ' fixed z-20' : 'hidden'}`}
 			>
 				<CartForm />
 			</div>

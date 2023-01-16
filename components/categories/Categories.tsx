@@ -44,8 +44,8 @@ const Categories: React.FC = () => {
 	);
 
 	return (
-		<div className=" max-w-7xl mx-auto my-40 text-gray-900 px-1 xl:px-0 overflow-hidden">
-			<div className="flex justify-center mb-12 ">
+		<div className=" max-w-7xl mx-auto my-40 text-gray-900 px-1 xl:px-0 overflow-hidden max-md:my-24 md:my-80">
+			<div className="flex justify-center mb-10 ">
 				<h2 className="text-3xl dark:text-white text-center  md:text-left md:text-5xl font-Josefin -tracking-tight">
 					Our Products
 				</h2>
