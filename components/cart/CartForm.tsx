@@ -4,11 +4,13 @@ import CartItem from './CartItems';
 import { typeDetails } from '../products/ProductList';
 import CheckoutForm from './CheckoutForm';
 import Btn from '../ui/Btn';
+import LoadingSpin from '../ui/LoadingSpin';
 
 const CartForm: React.FC = () => {
 	const [checkout, setCheckout] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const [submit, setSubmit] = useState(false);
 
 	const cartCtx = useContext(CartContext);
 
@@ -22,6 +24,11 @@ const CartForm: React.FC = () => {
 
 	const cartItemRemoveHandler = (id: string) => {
 		cartCtx.removeItem(id);
+	};
+
+	const cartSendHandler = () => {
+		setSubmit(false);
+		cartCtx.clearCart();
 	};
 	const submitHandler = async (userData: any) => {
 		try {
@@ -40,10 +47,10 @@ const CartForm: React.FC = () => {
 			if (!res.ok) {
 				throw new Error('Sorry! Something went wrong please try again!');
 			}
-			console.log(res, 'the res message');
 		} catch (error) {
 			setError(error.message);
 		}
+		setSubmit(true);
 		setIsLoading(false);
 	};
 
@@ -61,65 +68,80 @@ const CartForm: React.FC = () => {
 			))}
 		</ul>
 	);
+
 	return (
-		<div
-			className=" mx-2 sm:mx-auto mt-16 p-4 md:mt-32 bg-white 
-		text-black dark:text-white dark:bg-slate-800 
-		rounded-xl drop-shadow-lg z-30 slide-down max-w-2xl "
-		>
-			{cartItems}
-			<div className=" flex flex-row  my-4  justify-between  ">
-				{hasItems && (
-					<>
-						{!checkout && (
+		<>
+			{submit ? (
+				<div
+					className="slide-down space-y-8 capitalize my-52 py-10 px-4 
+											max-w-2xl mx-auto text-center rounded-xl "
+				>
+					{error ? (
+						<>
+							<p>Sorry! Something went wrong please try again! </p>
 							<Btn
-								title="check out"
-								onAdd={() => setCheckout(!checkout)}
+								title="close"
+								onAdd={() => setSubmit(!submit)}
 							/>
+						</>
+					) : (
+						<>
+							<p>
+								thank you for choose our product we will contact you as soon as
+								possible
+							</p>
+							<Btn
+								title="close"
+								onAdd={cartSendHandler}
+							/>
+						</>
+					)}
+				</div>
+			) : (
+				<div
+					className=" mx-2 sm:mx-auto mt-16 p-4 md:mt-32 bg-white 
+										text-black dark:text-white dark:bg-slate-800 
+										rounded-xl drop-shadow-lg z-30 slide-down max-w-2xl"
+				>
+					{cartItems}
+
+					<div className=" flex flex-row  my-4  justify-between gap-5 ">
+						{!hasItems ? (
+							<p className=" capitalize"> cart is empty</p>
+						) : (
+							<>
+								{!checkout && (
+									<Btn
+										title="check out"
+										onAdd={() => setCheckout(!checkout)}
+									/>
+								)}
+								<div className={`flex${checkout ? 'flex-row ' : 'flex-col'}`}>
+									<div className=" font-Josefin capitalize text-sm">
+										Total amount
+									</div>
+									<div className="font-Alata text-sm  text-[#00ed00]">
+										{totalAmount}
+									</div>
+								</div>
+							</>
 						)}
-					</>
-				)}
-				{!isLoading && error && (
-					<p className="text-red-400 max-sm:text-xs">
-						Sorry! Something went wrong please try again!
-					</p>
-				)}
-				{/* {!isLoading && !error && (
-					<p>
-						cart has been sent thank you for choosing our product we will
-						contact you as soon as possible
-					</p>
-				)} */}
-				{hasItems ? (
-					<div
-						className={`flex     ${
-							!error && checkout ? 'flex-row ' : 'flex-col  '
-						}`}
-					>
-						<div className=" font-Josefin capitalize text-sm">Total amount</div>
-						<div className="font-Alata text-sm  text-[#00ed00]">
-							{totalAmount}
-						</div>
 					</div>
-				) : (
-					<p> cart is empty</p>
-				)}
-			</div>
-			{isLoading && (
-				<div className="lds-ring">
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
+
+					{hasItems && checkout && !isLoading && (
+						<CheckoutForm
+							cancel={() => setCheckout(!checkout)}
+							onConfirm={submitHandler}
+						/>
+					)}
+					{isLoading && (
+						<div className="text-center">
+							<LoadingSpin />
+						</div>
+					)}
 				</div>
 			)}
-			{hasItems && checkout && !isLoading && (
-				<CheckoutForm
-					cancel={() => setCheckout(!checkout)}
-					onConfirm={submitHandler}
-				/>
-			)}
-		</div>
+		</>
 	);
 };
 

@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import ProductsList from '../components/products/ProductList';
-import { snapshot } from './api/products';
+import { db } from './api/products';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 
 export type typeItems = {
 	items: [
@@ -16,7 +17,9 @@ export type typeItems = {
 };
 
 export async function getStaticProps() {
-	const items = await snapshot;
+	const itemsCol = collection(db, 'items');
+	const q = query(itemsCol, orderBy('timestamp', 'desc'));
+	const items = await getDocs(q);
 
 	return {
 		props: {
@@ -27,9 +30,10 @@ export async function getStaticProps() {
 				image: doc.data().image,
 				price: doc.data().price,
 				title: doc.data().title,
+				timestamp: doc.data().timestamp?.toDate().getTime(),
 			})),
 		},
-		// revalidate: 5,
+		revalidate: 5,
 	};
 }
 

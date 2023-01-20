@@ -3,6 +3,7 @@ import ProductDetails from '../../components/products/ProductDetails';
 import { db, snapshot } from '../api/products';
 import Head from 'next/head';
 import { typeDetails } from '../../components/products/ProductList';
+import DeleteItemDb from '../../components/admin/DeleteItemDb';
 
 export async function getStaticPaths() {
 	const idItems = await snapshot;
@@ -19,8 +20,9 @@ export async function getStaticProps(context: any) {
 	const productId: any = context.params.productId;
 	const select = doc(db, 'items', productId);
 	const q = await getDoc(select);
-	const singleItem = q.data();
-
+	const items = q.data();
+	const singleItem = JSON.parse(JSON.stringify(items));
+	console.log(singleItem, 'items');
 	return {
 		props: {
 			singleItem,
@@ -31,8 +33,6 @@ export async function getStaticProps(context: any) {
 }
 
 function ProductId(props: { singleItem: typeDetails; productId: string }) {
-	console.log(props.singleItem, 'this is the single product that you return ');
-
 	return (
 		<>
 			<Head>
@@ -42,6 +42,9 @@ function ProductId(props: { singleItem: typeDetails; productId: string }) {
 				item={props.singleItem}
 				id={props.productId}
 			/>
+			<div className="my-10 max-w-xs mx-auto">
+				<DeleteItemDb id={props.productId} />
+			</div>
 		</>
 	);
 }

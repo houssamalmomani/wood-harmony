@@ -3,8 +3,11 @@ import Categories from '../components/categories/Categories';
 import Head from 'next/head';
 import CustomIt from '../components/layout/CustomIt';
 import Hero from '../components/layout/Hero';
+import { useState } from 'react';
+import AddItemDb from '../components/admin/AddItemDb';
 
 export default function Home() {
+	const [isLogIn, setIsLogIn] = useState(true);
 	return (
 		<>
 			<Head>
@@ -14,12 +17,13 @@ export default function Home() {
 					content=""
 				/>
 			</Head>
+			{!isLogIn && (
+				<>
+					<Hero /> <Categories /> <CustomIt />
+				</>
+			)}
 
-			<Hero />
-
-			<Categories />
-
-			<CustomIt />
+			{isLogIn && <AddItemDb />}
 		</>
 	);
 }

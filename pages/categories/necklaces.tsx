@@ -1,9 +1,13 @@
-import { getDocs, query, where } from 'firebase/firestore';
+import { getDocs, orderBy, query, where } from 'firebase/firestore';
 import ProductsList from '../../components/products/ProductList';
 import { itemsCol } from '../api/products';
 import { typeItems } from '../all-products';
 export async function getStaticProps() {
-	const q = query(itemsCol, where('category', '==', 'neck-laces'));
+	const q = query(
+		itemsCol,
+		where('category', '==', 'neck-laces'),
+		orderBy('timestamp', 'desc')
+	);
 	const items = await getDocs(q);
 	return {
 		props: {

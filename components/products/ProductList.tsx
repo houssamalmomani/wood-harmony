@@ -11,15 +11,18 @@ export type typeDetails = {
 const ProductsList: React.FC<typeItems> = (props) => {
 	return (
 		<div className="max-w-7xl mx-auto">
+			<h1 className="text-center mt-32 md:mt-44 md:mb-24 mb-12 font-Josefin capitalize md:text-2xl text-xl">
+				every item is a unique item so you can only choose one item
+			</h1>
 			<ul
-				className="	my-32 grid grid-col-1 
-             			xl:grid-cols-4 xl:gap-10  xl:mx-0
-             			lg:grid-cols-3 -lg:gap-5
-						 md:gap-5 md:grid-cols-2 md:mx-20
-						 max-sm:grid-cols-2 max-sm:mx-1 max-sm:gap-1
-						 sm:grid-cols-2 sm:gap-1 sm:mx-12
-						 max-[320px]:grid-cols-1 
-						 "
+				className="	 grid grid-col-1 
+				xl:grid-cols-4 xl:gap-10  xl:mx-0
+				lg:grid-cols-3 -lg:gap-5
+				md:gap-5 md:grid-cols-2 md:mx-20
+				max-sm:grid-cols-2 max-sm:mx-1 max-sm:gap-1
+				sm:grid-cols-2 sm:gap-1 sm:mx-12
+				max-[320px]:grid-cols-1 
+				"
 			>
 				{props.items.map((item: typeDetails) => (
 					<ProductItem

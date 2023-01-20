@@ -48,7 +48,7 @@ const CheckoutForm: React.FC<{ cancel: MouseEventHandler; onConfirm: any }> = (
 		{
 			id: 'm1',
 			htmlFor: 'name',
-			info: 'your name',
+			info: 'name',
 			type: 'text',
 			placeholder: 'please inter your full name',
 			ref: nameInputRef,
@@ -75,39 +75,40 @@ const CheckoutForm: React.FC<{ cancel: MouseEventHandler; onConfirm: any }> = (
 			validity: formInputsValid.tel,
 		},
 	];
-	const formContent = formInfo.map((data: any) => (
-		<div
-			key={data.id}
-			className="flex flex-col gap-1 mt-2 "
-		>
-			<label
-				htmlFor={data.htmlFor}
-				className=" font-Josefin capitalize "
-			>
-				{data.info}
-			</label>
-			<input
-				type={data.type}
-				id={data.htmlFor}
-				placeholder={data.placeholder}
-				ref={data.ref}
-				className={`rounded-md  border-[1px] font-Josefin pl-2
-                        text-black bg-white drop-shadow-lg h-10 ${
-													!data.validity && 'bg-red-200'
-												}`}
-			/>
-			{!data.validity && (
-				<p className=" text-red-600 text-sm ">please inter your {data.info} </p>
-			)}
-		</div>
-	));
+
 	console.log(formInfo, 'this is the form info');
 	return (
 		<form
 			onSubmit={confirmHandler}
 			className="slide-down max-w-sm"
 		>
-			{formContent}
+			{formInfo.map((data: any) => (
+				<div
+					key={data.id}
+					className="flex flex-col gap-1 mt-2 "
+				>
+					<label
+						htmlFor={data.htmlFor}
+						className=" font-Josefin capitalize "
+					>
+						{data.info}
+					</label>
+					<input
+						type={data.type}
+						id={data.htmlFor}
+						placeholder={data.placeholder}
+						ref={data.ref}
+						className={`rounded-md  border-[1px] font-Josefin pl-2
+                  text-black bg-white drop-shadow-lg h-10 
+									${!data.validity && 'bg-red-200'}`}
+					/>
+					{!data.validity && (
+						<p className=" text-red-600 text-sm capitalize">
+							please inter your {data.info}
+						</p>
+					)}
+				</div>
+			))}
 			<div className="flex flex-row justify-evenly mt-5">
 				<Btn title="confirm" />
 				<Btn

@@ -23,23 +23,6 @@ const ProductItem: React.FC<typeDetails> = (props) => {
 	};
 	const { items } = cartCtx;
 
-	// useEffect(() => {
-	// 	localStorage.setItem('items', JSON.stringify(cartCtx.items));
-	// }, [cartCtx.items]);
-	// if (typeof window !== 'undefined') {
-	// 	// Perform localStorage action
-	// 	const items = localStorage.getItem('items');
-	// }
-	// useEffect(() => {
-	// 	localStorage.setItem('items', JSON.stringify(cartCtx.items));
-	// }, [cartCtx.addItem, cartCtx.removeItem]);
-	// useEffect(() => {
-	// 	// Perform localStorage action
-	// 	const items = localStorage.getItem('items');
-	// }, []);
-	// const items = window.localStorage.getItem('items');
-	// items ? JSON.parse(items) : [];
-
 	const amount =
 		cartCtx.items?.find((item: any) => item.id === props.id)?.amount || 0;
 

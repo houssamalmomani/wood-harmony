@@ -10,6 +10,7 @@ const NavBar: React.FC = () => {
 		['Home', '/'],
 		['Categories', '/categories'],
 		['All Products', '/all-products'],
+		// ['عربي', '/ar'],
 	];
 
 	const navItemsHandler = (
@@ -71,7 +72,7 @@ const NavBar: React.FC = () => {
 							{navItemsHandler}
 						</div>
 
-						<div className=" absolute top-72">
+						<div className=" absolute top-80">
 							<DarkModeBtn />
 						</div>
 					</div>

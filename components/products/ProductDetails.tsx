@@ -21,6 +21,7 @@ type ProductDetailsProps = {
 };
 
 const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
+	const weight = `${props.item.weight.toFixed(1)}g`;
 	const cartCtx = useContext(CartContext);
 	const cartItemAddHandler = (item: any, id: any) => {
 		cartCtx.addItem({ ...item, amount: 1, id: props.id });
@@ -36,58 +37,63 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 	return (
 		<div className="w-auto ">
 			<div
-				className="flex flex-col gap-0 items-center 
-				justify-center mb-10 mt-20 md:mt-32 max-w-xl mx-auto "
+				className="flex flex-col  
+				 						mt-20 md:mt-32 max-w-xl mx-auto "
 			>
-				<h1 className=" font-Orbitron md:text-3xl text-xl">
+				<h1 className=" font-Josefin md:text-3xl text-2xl text-center">
 					{props.item.title}
 				</h1>
 				<div className=" w-full p-5">
-					<div className="">
-						<Swiper
-							style={{
-								'--swiper-pagination-bullet-inactive-color': '#999999',
-								'--swiper-pagination-bullet-inactive-opacity': '1',
-								'--swiper-pagination-bullet-size': '10px',
-								'--swiper-pagination-bullet-horizontal-gap': '6px',
-							}}
-							className=" max-[450px]:h-[27rem] max-[350px]:h-[20rem] "
-							effect={'flip'}
-							grabCursor={true}
-							pagination={true}
-							spaceBetween={10}
-							modules={[EffectFlip, Pagination]}
-						>
-							{props.item.image.map((images: string, index: number) => (
-								<SwiperSlide
-									key={index}
-									className="rounded-lg "
-								>
-									<Image
-										src={images}
-										alt="product images"
-										className=" rounded-lg "
-										width={500}
-										height={500}
-										priority
-									/>
-								</SwiperSlide>
-							))}
-						</Swiper>
-					</div>
-					<h2 className=" font-bold text-center">{props.item.description}</h2>
+					<Swiper
+						style={{
+							'--swiper-pagination-bullet-inactive-color': '#999999',
+							'--swiper-pagination-bullet-inactive-opacity': '1',
+							'--swiper-pagination-bullet-size': '10px',
+							'--swiper-pagination-bullet-horizontal-gap': '6px',
+						}}
+						className=" max-[450px]:h-[27rem] max-[350px]:h-[20rem] "
+						effect={'flip'}
+						grabCursor={true}
+						pagination={true}
+						spaceBetween={10}
+						modules={[EffectFlip, Pagination]}
+					>
+						{props.item.image.map((images: string, index: number) => (
+							<SwiperSlide
+								key={index}
+								className="rounded-lg "
+							>
+								<Image
+									src={images}
+									alt="product images"
+									className=" rounded-lg "
+									width={500}
+									height={500}
+									priority
+								/>
+							</SwiperSlide>
+						))}
+					</Swiper>
 				</div>
-				{amount === 0 ? (
-					<Btn
-						title="Add To Cart"
-						onAdd={cartItemAddHandler.bind(null, props.item, props.id)}
-					/>
-				) : (
-					<Btn
-						title="Remove"
-						onAdd={cartItemRemoveHandler.bind(null, props.id)}
-					/>
-				)}
+				<div className="flex flex-col gap-2 px-5 font-Josefin capitalize">
+					<h2>
+						description:
+						{props.item.description}
+					</h2>
+					<h2>dimensions: {props.item.dimensions}</h2>
+					<h2>weight: {weight} </h2>
+					{amount === 0 ? (
+						<Btn
+							title="Add To Cart"
+							onAdd={cartItemAddHandler.bind(null, props.item, props.id)}
+						/>
+					) : (
+						<Btn
+							title="Remove"
+							onAdd={cartItemRemoveHandler.bind(null, props.id)}
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	);
