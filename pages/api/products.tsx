@@ -1,7 +1,22 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { collection, getDocs, getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+import { getDatabase, ref } from 'firebase/database';
+import {
+	addDoc,
+	arrayUnion,
+	collection,
+	doc,
+	getDocs,
+	getFirestore,
+	updateDoc,
+} from 'firebase/firestore';
+import { getDownloadURL, getStorage, uploadBytes } from 'firebase/storage';
+import { serverTimestamp } from 'firebase/firestore';
 
+export const config = {
+	api: {
+		bodyParser: false,
+	},
+};
 const firebaseConfig = {
 	apiKey: 'AIzaSyDH9rCqGaLkrTYezdvncNcfn3nUKXnKbUM',
 	authDomain: 'wood-harmony-9b998.firebaseapp.com',
@@ -15,9 +30,35 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const dbR = getDatabase();
 const storage = getStorage();
 const itemsCol = collection(db, 'items');
 
 const snapshot = getDocs(itemsCol);
-
-export { db, app, snapshot, itemsCol, storage };
+export { db, storage, itemsCol, dbR, snapshot };
+// export default async function handler(req, res) {
+// 	const data = req.body;
+// 	if (req.method === 'POST') {
+// 		const docRef = await addDoc(itemsCol, {
+// 			category: data.category,
+// 			title: data.title,
+// 			description: data.description,
+// 			weight: data.weight,
+// 			dimensions: data.dimensions,
+// 			price: data.price,
+// 			timestamp: serverTimestamp(),
+// 		});
+// 		await Promise.all(
+// 			data.images.map((image: any) => {
+// 				const imageRef = ref(storage, `products/${docRef.id}/${image.name}`);
+// 				uploadBytes(imageRef, image, 'data_url').then(async () => {
+// 					const downloadURL = await getDownloadURL(imageRef);
+// 					await updateDoc(doc(itemsCol, docRef.id), {
+// 						image: arrayUnion(downloadURL),
+// 					});
+// 					// setProgress(false);
+// 				});
+// 			})
+// 		);
+// 	}
+// }

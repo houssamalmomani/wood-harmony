@@ -1,7 +1,7 @@
 const LoadingSpin: React.FC = () => {
 	return (
 		<>
-			<div className="lds-ripple">
+			<div className="lds-ripple svg">
 				<div></div>
 				<div></div>
 			</div>

@@ -8,6 +8,7 @@ import BtnMin from '../ui/BtnMin';
 import BtnItem from '../ui/BtnItem';
 
 const ProductItem: React.FC<typeDetails> = (props) => {
+	const [isLoading, setIsLoading] = useState(false);
 	const cartCtx = useContext(CartContext);
 	const addItemToCartHandler = (amount: number) => {
 		cartCtx.addItem({
@@ -23,13 +24,15 @@ const ProductItem: React.FC<typeDetails> = (props) => {
 	};
 	const { items } = cartCtx;
 
-	const amount =
-		cartCtx.items?.find((item: any) => item.id === props.id)?.amount || 0;
+	const amount = items?.find((item: any) => item.id === props.id)?.amount || 0;
 
 	const router = useRouter();
 	const ProductsDetailsHandler = () => {
+		setIsLoading(true);
+
 		router.push('/' + props.id);
 	};
+
 	return (
 		<Card>
 			<li className="max-sm:rounded-lg   ">
@@ -37,25 +40,29 @@ const ProductItem: React.FC<typeDetails> = (props) => {
 					className="max-sm:rounded-lg group relative"
 					onClick={ProductsDetailsHandler}
 				>
-					<div className="overflow-hidden drop-shadow-lg">
+					<div className="overflow-hidden drop-shadow-lg max-sm:rounded-lg">
 						<Image
 							src={props.image[0]}
 							alt={props.title}
-							className="max-sm:rounded-t-lg group-hover:scale-150 duration-200 "
+							className="max-sm:rounded-lg group-hover:scale-150 duration-200 "
 							priority
 							width={500}
 							height={500}
+							quality={30}
 						/>
 					</div>
-					<div
-						className="absolute top-0 bottom-0 right-0 left-0 bg-gradient-to-b 
-		                from-transparent  group-hover:from-gray-50 group-hover:to-white 
-						group-hover:opacity-70 rounded-lg md:rounded-none group-hover:animate-pulse text-center py-[45%]"
-					>
-						<h1 className=" hidden max-md:group-hover:block uppercase font-Orbitron text-black">
-							loading ....
-						</h1>
-					</div>
+					{isLoading && (
+						<div
+							className="absolute top-0 bottom-0 right-0 left-0
+													bg-gradient-to-b from-gray-50 to-white
+													opacity-70 rounded-lg md:rounded-none
+									 				animate-pulse text-center py-[45%]"
+						>
+							<h1 className="uppercase font-Orbitron text-black">
+								loading ....
+							</h1>
+						</div>
+					)}
 				</div>
 				<div className="p-4 flex flex-row items-end justify-between">
 					<div>

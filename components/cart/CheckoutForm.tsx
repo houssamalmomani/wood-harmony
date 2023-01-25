@@ -10,18 +10,18 @@ const CheckoutForm: React.FC<{ cancel: MouseEventHandler; onConfirm: any }> = (
 		address: true,
 		tel: true,
 	});
-	const nameInputRef = useRef();
+	const nameInputRef = useRef('');
 
-	const addressInputRef = useRef();
+	const addressInputRef = useRef('');
 
-	const telInputRef = useRef();
+	const telInputRef = useRef('');
 
 	const confirmHandler = (event: FormEvent) => {
 		event.preventDefault();
 
-		const enteredName = nameInputRef.current?.value;
-		const enteredAddress = addressInputRef.current?.value;
-		const enteredTel = telInputRef.current?.value;
+		const enteredName = nameInputRef.current.value;
+		const enteredAddress = addressInputRef.current.value;
+		const enteredTel = telInputRef.current.value;
 
 		const nameValid = !isEmpty(enteredName);
 		const addressValid = !isEmpty(enteredAddress);
@@ -80,7 +80,7 @@ const CheckoutForm: React.FC<{ cancel: MouseEventHandler; onConfirm: any }> = (
 	return (
 		<form
 			onSubmit={confirmHandler}
-			className="slide-down max-w-sm"
+			className="slide-down max-w-sm "
 		>
 			{formInfo.map((data: any) => (
 				<div

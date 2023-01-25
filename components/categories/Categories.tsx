@@ -31,8 +31,8 @@ const Categories: React.FC = () => {
 							/>
 							<div
 								className="absolute top-0 bottom-0 right-0 left-0 bg-gradient-to-b 
-		                    from-transparent to-black group-hover:from-gray-50 group-hover:to-white 
-							group-hover:opacity-70 rounded-lg md:rounded-none group-hover:animate-pulse"
+		                    		from-transparent to-black group-hover:from-gray-50 group-hover:to-white 
+														group-hover:opacity-70 rounded-lg md:rounded-none group-hover:animate-pulse"
 							/>
 							<SeeMore />
 							<h5>{`${title}`}</h5>

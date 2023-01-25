@@ -2,14 +2,23 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import DarkModeBtn from './DarkModeBtn';
 import Cart from '../cart/Cart';
+import Auth from '../admin/Auth';
 
 const NavBar: React.FC = () => {
 	const [navbarOpen, setNavbarOpen] = useState<boolean>(false);
+	const [authForm, setAuthForm] = useState(false);
+
+	const signInHandler = () => {
+		setAuthForm(!authForm);
+		setNavbarOpen(false);
+	};
 
 	const navItems: string[][] = [
 		['Home', '/'],
 		['Categories', '/categories'],
 		['All Products', '/all-products'],
+		['Orders', '/orders'],
+
 		// ['عربي', '/ar'],
 	];
 
@@ -20,7 +29,7 @@ const NavBar: React.FC = () => {
 					href={url}
 					key={title}
 					className="hover:text-gray-400 md:hover:text-white
-								 md:hover:border-b-2 border-white"
+								 			md:hover:border-b-2 border-white"
 					onClick={() => setNavbarOpen(!navbarOpen)}
 				>
 					{title}
@@ -35,17 +44,30 @@ const NavBar: React.FC = () => {
 				<div className="  z-10 container max-w-7xl mx-auto  px-5 xl:px-0 md:py-8 py-4">
 					<nav
 						className="z-30 flex flex-row-reverse items-center 
-									justify-between font-Alata text-white"
+						justify-between font-Alata text-white"
 					>
 						<Cart />
+						<Auth
+							auth={authForm}
+							close={setAuthForm}
+						/>
 						<h1
 							className=" font-Orbitron text-slate-200
-										md:text-3xl text-md lg:pr-60"
+													md:text-3xl text-md lg:pr-60"
 						>
 							Wood Harmony
 						</h1>
 						<div className="hidden md:flex gap-5 font-alata  ">
 							<div className=" space-x-5">{navItemsHandler}</div>
+							<button
+								onClick={signInHandler}
+								className="hover:text-gray-400 md:hover:text-white
+								 			md:hover:border-b-2 border-white"
+							>
+								Sign in
+							</button>
+							{/* <h1 onClick={()}>Sign In</h1> */}
+
 							<DarkModeBtn />
 						</div>
 						<div className="md:hidden pt-2">
@@ -70,9 +92,13 @@ const NavBar: React.FC = () => {
 					>
 						<div className=" gap-7 flex flex-col items-start ">
 							{navItemsHandler}
-						</div>
-
-						<div className=" absolute top-80">
+							<button
+								onClick={signInHandler}
+								className="hover:text-gray-400 md:hover:text-white
+								 			md:hover:border-b-2 border-white"
+							>
+								Sign in
+							</button>
 							<DarkModeBtn />
 						</div>
 					</div>

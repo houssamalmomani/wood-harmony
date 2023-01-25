@@ -8,6 +8,7 @@ import {
 	serverTimestamp,
 } from 'firebase/firestore';
 import { ref, getDownloadURL, uploadBytes } from '@firebase/storage';
+import LoadingSpin from '../ui/LoadingSpin';
 
 const initialState = {
 	title: '',
@@ -18,7 +19,7 @@ const initialState = {
 };
 const AddItemDb: React.FC = () => {
 	const [file, setFile] = useState<any>([]);
-	const [progress, setProgress] = useState(null);
+	const [progress, setProgress] = useState(false);
 	const [form, setForm] = useState(initialState);
 	const filesHandler = (e: any) => {
 		for (let i = 0; i < e.target.files.length; i++) {
@@ -44,97 +45,108 @@ const AddItemDb: React.FC = () => {
 	];
 	const confirmHandler = async (event: FormEvent) => {
 		event.preventDefault();
+		setProgress(true);
+		try {
+			const docRef = await addDoc(itemsCol, {
+				category: categoryRef.current.value,
+				title: titleRef.current.value,
+				description: descriptionRef.current.value,
+				weight: +weightRef.current.value,
+				dimensions: dimensionsRef.current.value,
+				price: +priceRef.current.value,
+				timestamp: serverTimestamp(),
+			});
 
-		const docRef = await addDoc(itemsCol, {
-			category: categoryRef.current.value,
-			title: titleRef.current.value,
-			description: descriptionRef.current.value,
-			weight: +weightRef.current.value,
-			dimensions: dimensionsRef.current.value,
-			price: +priceRef.current.value,
-			timestamp: serverTimestamp(),
-		});
-
-		await Promise.all(
-			file.map((image) => {
-				const imageRef = ref(storage, `products/${docRef.id}/${image.name}`);
-				uploadBytes(imageRef, image, 'data_url').then(async () => {
-					const downloadURL = await getDownloadURL(imageRef);
-					await updateDoc(doc(db, 'items', docRef.id), {
-						image: arrayUnion(downloadURL),
+			await Promise.all(
+				file.map((image) => {
+					const imageRef = ref(storage, `products/${docRef.id}/${image.name}`);
+					uploadBytes(imageRef, image, 'data_url').then(async () => {
+						const downloadURL = await getDownloadURL(imageRef);
+						await updateDoc(doc(db, 'items', docRef.id), {
+							image: arrayUnion(downloadURL),
+						});
+						console.log(downloadURL, 'images url sakdlfj');
+						setProgress(false);
 					});
-					console.log(downloadURL, 'images url sakdlfj');
-				});
-			})
-		);
+				})
+			);
+		} catch {}
 	};
 
 	return (
-		<form
-			onSubmit={confirmHandler}
-			id="form"
-			className="flex flex-col  mt-24 md:mt-44 max-w-3xl mx-auto gap-10 px-2  capitalize"
-		>
-			<label htmlFor="files">choose images</label>
-			<input
-				type="file"
-				onChange={filesHandler}
-				id="files"
-				name="file"
-				multiple
-			/>
-			<div className="flex flex-col gap-5">
-				<label
-					htmlFor="category"
-					className=" "
-				>
-					Category:
-				</label>
-				<select
-					name="category"
-					id="category"
-					ref={categoryRef}
-					className="h-12 rounded-md"
-				>
-					<option value="hand-bracelets"> hand bracelets</option>
-					<option value="neck-laces">neck laces</option>
-					<option value="key-chains">key chains</option>
-				</select>
-			</div>
-			<div></div>
-			{formData.map(([htmlFor, type, ref]) => (
-				<div
-					key={Math.random()}
-					className="flex flex-col gap-5"
-				>
-					<label htmlFor={htmlFor}>{htmlFor}:</label>
-					<input
-						id={htmlFor}
-						type={type}
-						placeholder={htmlFor}
-						ref={ref}
-						className={`rounded-md  border-[1px] font-Josefin pl-2
-                  text-black bg-white drop-shadow-lg h-10 
-									`}
-						// ${!data.validity && 'bg-red-200'}
-					/>
+		<>
+			{progress ? (
+				<div className="mx-auto text-center my-[50%]">
+					<LoadingSpin />
 				</div>
-			))}
-
-			<div className="my-10 mx-auto">
-				<button
-					type="submit"
-					form="form"
-					value="submit"
-					className=" px-6 py-1 text-sm tracking-widest border-2 border-black
-						dark:border-white font-alata hover:bg-black
-                    	dark:hover:bg-white hover:text-white
-					  	 dark:hover:text-black uppercase rounded-full  "
+			) : (
+				<form
+					onSubmit={confirmHandler}
+					id="form"
+					className="flex flex-col  mt-24 md:mt-44 max-w-3xl mx-auto gap-10 px-2  capitalize"
 				>
-					confirm
-				</button>
-			</div>
-		</form>
+					<label htmlFor="files">choose images</label>
+					<input
+						type="file"
+						onChange={filesHandler}
+						id="files"
+						name="file"
+						multiple
+					/>
+					<div className="flex flex-col gap-5">
+						<label
+							htmlFor="category"
+							className=" "
+						>
+							Category:
+						</label>
+						<select
+							name="category"
+							id="category"
+							ref={categoryRef}
+							className="h-12 rounded-md"
+						>
+							<option value="hand-bracelets"> hand bracelets</option>
+							<option value="neck-laces">neck laces</option>
+							<option value="key-chains">key chains</option>
+						</select>
+					</div>
+					<div></div>
+					{formData.map(([htmlFor, type, ref]) => (
+						<div
+							key={Math.random()}
+							className="flex flex-col gap-5"
+						>
+							<label htmlFor={htmlFor}>{htmlFor}:</label>
+							<input
+								id={htmlFor}
+								type={type}
+								placeholder={htmlFor}
+								ref={ref}
+								className={`rounded-md  border-[1px] font-Josefin pl-2
+						text-black bg-white drop-shadow-lg h-10 
+						`}
+								// ${!data.validity && 'bg-red-200'}
+							/>
+						</div>
+					))}
+
+					<div className="my-10 mx-auto">
+						<button
+							type="submit"
+							form="form"
+							value="submit"
+							className=" px-6 py-1 text-sm tracking-widest border-2 border-black
+					dark:border-white font-alata hover:bg-black
+					dark:hover:bg-white hover:text-white
+					dark:hover:text-black uppercase rounded-full  "
+						>
+							confirm
+						</button>
+					</div>
+				</form>
+			)}
+		</>
 	);
 };
 export default AddItemDb;

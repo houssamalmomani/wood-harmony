@@ -34,8 +34,9 @@
 .hamburger-middle,
 .hamburger-bottom {
 	position: absolute;
-	width: 24px;
+	width: 25px;
 	height: 2px;
+	border-radius: 1px;
 	top: 0;
 	right: 0;
 	background: white;

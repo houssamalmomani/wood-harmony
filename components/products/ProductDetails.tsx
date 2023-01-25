@@ -55,7 +55,6 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 						effect={'flip'}
 						grabCursor={true}
 						pagination={true}
-						spaceBetween={10}
 						modules={[EffectFlip, Pagination]}
 					>
 						{props.item.image.map((images: string, index: number) => (
@@ -67,8 +66,9 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 									src={images}
 									alt="product images"
 									className=" rounded-lg "
-									width={500}
-									height={500}
+									width={700}
+									height={700}
+									quality={70}
 									priority
 								/>
 							</SwiperSlide>

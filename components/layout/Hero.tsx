@@ -10,7 +10,9 @@ const Hero: React.FC = () => {
 				src={bg}
 				fill
 				alt="main pic"
+				quality={50}
 				priority
+				placeholder="blur"
 			/>
 
 			<div

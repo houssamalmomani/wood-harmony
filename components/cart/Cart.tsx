@@ -54,9 +54,9 @@ const Cart: React.FC = () => {
 			)}
 			<div
 				className={`fixed  top-0 bottom-0  
-							left-0 w-full min-h-screen slide-down
-							 bg-black bg-opacity-70
-							${overlays ? ' fixed z-20' : 'hidden'}`}
+										left-0 w-full min-h-screen slide-down
+							 		bg-black bg-opacity-70
+									${overlays ? ' fixed z-20' : 'hidden'}`}
 			>
 				<CartForm />
 			</div>

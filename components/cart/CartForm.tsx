@@ -5,6 +5,8 @@ import { typeDetails } from '../products/ProductList';
 import CheckoutForm from './CheckoutForm';
 import Btn from '../ui/Btn';
 import LoadingSpin from '../ui/LoadingSpin';
+import { ref, set } from 'firebase/database';
+import { dbR } from '../../pages/api/products';
 
 const CartForm: React.FC = () => {
 	const [checkout, setCheckout] = useState(false);
@@ -17,7 +19,9 @@ const CartForm: React.FC = () => {
 	const totalAmount = `JOD ${cartCtx.totalAmount?.toFixed(2)}`;
 
 	const hasItems = cartCtx.items?.length > 0;
-
+	useEffect(() => {
+		console.log('cart');
+	});
 	const cartItemAddHandler = (item: typeDetails) => {
 		cartCtx.addItem({ ...item, amount: 1 });
 	};
@@ -34,16 +38,22 @@ const CartForm: React.FC = () => {
 		try {
 			setIsLoading(true);
 			setError(null);
-			const res = await fetch(
-				'https://wood-harmony-9b998-default-rtdb.firebaseio.com/orders.json',
-				{
-					method: 'POST',
-					body: JSON.stringify({
-						user: userData,
-						orderItems: cartCtx.items,
-					}),
-				}
-			);
+			const res = await set(ref(dbR, `/orders/${userData.tel}`), {
+				userInfo: userData,
+				orderItems: cartCtx.items,
+			});
+			// const res = await fetch(
+			// 	'https://wood-harmony-9b998-default-rtdb.firebaseio.com/orders.json',
+			// 	{
+			// 		method: 'POST',
+			// 		body: JSON.stringify({
+			// 			tel: userData.tel,
+			// 			name: userData.name,
+			// 			address: userData.address,
+			// 			orderItems: cartCtx.items,
+			// 		}),
+			// 	}
+			// );
 			if (!res.ok) {
 				throw new Error('Sorry! Something went wrong please try again!');
 			}
@@ -101,7 +111,7 @@ const CartForm: React.FC = () => {
 				<div
 					className=" mx-2 sm:mx-auto mt-16 p-4 md:mt-32 bg-white 
 										text-black dark:text-white dark:bg-slate-800 
-										rounded-xl drop-shadow-lg z-30 slide-down max-w-2xl"
+										rounded-xl drop-shadow-lg z-30 slide-down max-w-2xl "
 				>
 					{cartItems}
 
