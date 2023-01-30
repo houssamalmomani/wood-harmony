@@ -1,6 +1,6 @@
 import { onValue, ref, set } from 'firebase/database';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { db, dbR } from './products';
+import { dbR, snapshot } from './firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
 // export const config = {
 // 	api: {
@@ -11,24 +11,20 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	switch (req.method) {
-		case 'POST':
-			const data: any = req.body;
-			await addDoc(collection(db, 'orders'), {
-				tel: data.tel,
-				name: data.name,
-				address: data.address,
-				orderItems: data.orderItems,
-				images: data.images,
-				category: data.category,
-			});
-			break;
-
-		// onValue(ref(dbR), (snapshot) => {
-		//   const data = snapshot.val();
-		// });
-		default:
-			console.log('ok');
-			break;
+	if (req.method === 'POST') {
+		const data: any = req.body;
+		const id = new Date();
+		await set(ref(dbR, `/orders/${id}`), JSON.parse(data));
 	}
+	res.status(200).json({
+		message:
+			'thank you for choose our product we will contact you as soon as possible',
+	});
+	// if (req.method === 'GET') {
+	// 	const ordersRef = ref(dbR, '/orders/');
+	// 	onValue(ordersRef, (snapshot) => {
+	// 		const data = snapshot.val();
+	// 	});
+	// 	res.status(200).json({ orders: ordersRef });
+	// }
 }

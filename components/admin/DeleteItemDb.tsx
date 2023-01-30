@@ -1,16 +1,15 @@
 import { deleteDoc, doc } from 'firebase/firestore';
-import { db, storage } from '../../pages/api/products';
+import { db, storage } from '../../pages/api/firebaseConfig';
 import { useRouter } from 'next/router';
 import LoadingSpin from '../ui/LoadingSpin';
 import { useState } from 'react';
-import { deleteObject, listAll, ref } from 'firebase/storage';
+import { deleteObject, ref } from 'firebase/storage';
 
 const DeleteItemDb: React.FC<{ id: string }> = (props) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 	const docRef = doc(db, 'items', props.id);
 
-	console.log(docRef.id, 'idsd');
 	const deleteFromDbHandler = async () => {
 		const fileRef = ref(storage, `products/${docRef.id}/b0.jpg`);
 		setIsLoading(true);

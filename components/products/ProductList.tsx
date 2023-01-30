@@ -1,5 +1,6 @@
 import ProductItem from './ProductItem';
 import { typeItems } from '../../pages/all-products';
+import { useTranslation } from 'next-i18next';
 export type typeDetails = {
 	category: string;
 	title: string;
@@ -9,10 +10,11 @@ export type typeDetails = {
 	id: string;
 };
 const ProductsList: React.FC<typeItems> = (props) => {
+	const { t } = useTranslation('allPro');
 	return (
 		<div className="max-w-7xl mx-auto">
 			<h1 className="text-center mt-32 md:mt-44 md:mb-24 mb-12 font-Josefin capitalize md:text-2xl text-xl">
-				every item is a unique item so you can only choose one item
+				{t('every item is a unique item so you can only choose one item')}
 			</h1>
 			<ul
 				className="	 grid grid-col-1 
@@ -28,6 +30,7 @@ const ProductsList: React.FC<typeItems> = (props) => {
 					<ProductItem
 						key={item.id}
 						{...item}
+						locale={props.locale}
 					/>
 				))}
 			</ul>

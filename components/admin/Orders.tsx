@@ -1,10 +1,11 @@
 import { onValue, ref } from 'firebase/database';
-import { dbR } from '../../pages/api/products';
+import { dbR } from '../../pages/api/firebaseConfig';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 const Orders: React.FC = () => {
 	const [orders, setOrders] = useState<any>([]);
+
 	useEffect(() => {
 		const ordersRef = ref(dbR, `/orders/`);
 		onValue(ordersRef, (snapshot) => {
@@ -17,15 +18,11 @@ const Orders: React.FC = () => {
 			}
 		});
 	}, [setOrders]);
-	console.log(orders);
 
 	return (
 		<div className="max-w-4xl mx-auto  py-52">
 			{orders.map((order: any) => (
-				<div
-					key={order.userInfo.tel}
-					className=""
-				>
+				<div key={order.userData.tel}>
 					<div className="space-y-5">
 						{order.orderItems.map((items: any) => (
 							<div
@@ -43,9 +40,9 @@ const Orders: React.FC = () => {
 						))}
 					</div>
 					<div className="mt-5 flex flex-col gap-2">
-						<p>{`Name: ${order.userInfo.name}`}</p>
-						<p> {`Address: ${order.userInfo.address}`} </p>
-						<p> {`Phone Number: ${order.userInfo.tel} `}</p>
+						<p>{`Name: ${order.userData.name}`}</p>
+						<p> {`Address: ${order.userData.address}`} </p>
+						<p> {`Phone Number: ${order.userData.tel} `}</p>
 					</div>
 					<hr className="my-5" />
 				</div>
@@ -53,4 +50,5 @@ const Orders: React.FC = () => {
 		</div>
 	);
 };
+
 export default Orders;

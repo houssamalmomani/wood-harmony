@@ -10,8 +10,10 @@ import hand6 from '../../public/assets/mobile/hand6.jpg';
 import img6 from '../../public/necklaces.jpg';
 import img4 from '../../public/assets/desktop/img4.jpg';
 import { ReactElement } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const CustomIt: React.FC<{}> = () => {
+	const { t } = useTranslation('home');
 	const gallery: (string | StaticImageData)[][] = [
 		[img3, 'col-span-3', 'i1'],
 		[hand5, 'col-span-2', 'i2'],
@@ -49,7 +51,7 @@ const CustomIt: React.FC<{}> = () => {
 			<div className="  flex justify-center mb-12 ">
 				{' '}
 				<h1 className="-tracking-tight text-3xl dark:text-white text-center  md:text-left md:text-5xl font-Josefin">
-					Express yourself with customizables
+					{t('Express yourself with customizables')}
 				</h1>
 			</div>
 			<div className="  grid grid-rows-2 grid-cols-8 gap-1 lg:gap-2 shadow-2xl">

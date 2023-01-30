@@ -3,23 +3,25 @@ import React, { useState } from 'react';
 import DarkModeBtn from './DarkModeBtn';
 import Cart from '../cart/Cart';
 import Auth from '../admin/Auth';
+import { signOut, useSession } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 const NavBar: React.FC = () => {
+	const { locale } = useRouter();
+	const { t } = useTranslation('common');
+	const { status } = useSession();
 	const [navbarOpen, setNavbarOpen] = useState<boolean>(false);
 	const [authForm, setAuthForm] = useState(false);
 
 	const signInHandler = () => {
-		setAuthForm(!authForm);
-		setNavbarOpen(false);
+		setAuthForm((prevState) => !prevState);
+		setNavbarOpen((prevState) => !prevState);
 	};
-
 	const navItems: string[][] = [
 		['Home', '/'],
 		['Categories', '/categories'],
 		['All Products', '/all-products'],
-		['Orders', '/orders'],
-
-		// ['عربي', '/ar'],
 	];
 
 	const navItemsHandler = (
@@ -30,14 +32,77 @@ const NavBar: React.FC = () => {
 					key={title}
 					className="hover:text-gray-400 md:hover:text-white
 								 			md:hover:border-b-2 border-white"
-					onClick={() => setNavbarOpen(!navbarOpen)}
+					onClick={() => setNavbarOpen((prevState) => !prevState)}
 				>
-					{title}
+					{t(title)}
 				</Link>
 			))}
 		</>
 	);
+	const authHelper = (
+		<>
+			{status === 'authenticated' ? (
+				<>
+					<Link
+						onClick={() => setNavbarOpen((prevState) => !prevState)}
+						href={'/admin/orders'}
+						className="hover:text-gray-400 md:hover:text-white
+					md:hover:border-b-2 border-white"
+					>
+						{t('Orders')}
+					</Link>
+					<Link
+						onClick={() => setNavbarOpen((prevState) => !prevState)}
+						href={'/admin/addItems'}
+						className="hover:text-gray-400 md:hover:text-white
+					md:hover:border-b-2 border-white"
+					>
+						{t('Add Items')}
+					</Link>
+					<button
+						onClick={() => signOut({ callbackUrl: '/' })}
+						className="hover:text-gray-400 md:hover:text-white
+												md:hover:border-b-2 border-white uppercase md:capitalize"
+					>
+						{t('Sign out')}
+					</button>
+					<></>
+				</>
+			) : (
+				<>
+					<button
+						onClick={signInHandler}
+						className="hover:text-gray-400 md:hover:text-white
+					md:hover:border-b-2 border-white"
+					>
+						{t('Sign in')}
+					</button>
+				</>
+			)}
+		</>
+	);
 
+	const langHandler = (
+		<>
+			{locale === 'en' ? (
+				<Link
+					href={'/'}
+					locale="ar"
+					className=""
+				>
+					عربي
+				</Link>
+			) : (
+				<Link
+					href={'/'}
+					locale="en"
+					className=""
+				>
+					EN
+				</Link>
+			)}
+		</>
+	);
 	return (
 		<>
 			<div className="w-full bg-slate-900  dark:bg-slate-800 fixed top-0 z-40 bg-opacity-70 dark:bg-opacity-70">
@@ -47,32 +112,30 @@ const NavBar: React.FC = () => {
 						justify-between font-Alata text-white"
 					>
 						<Cart />
-						<Auth
-							auth={authForm}
-							close={setAuthForm}
-						/>
+
+						{status === 'unauthenticated' && (
+							<Auth
+								auth={authForm}
+								close={setAuthForm}
+							/>
+						)}
 						<h1
 							className=" font-Orbitron text-slate-200
-													md:text-3xl text-md lg:pr-60"
+													sm:text-xl text-sm lg:pr-60"
 						>
 							Wood Harmony
 						</h1>
 						<div className="hidden md:flex gap-5 font-alata  ">
 							<div className=" space-x-5">{navItemsHandler}</div>
-							<button
-								onClick={signInHandler}
-								className="hover:text-gray-400 md:hover:text-white
-								 			md:hover:border-b-2 border-white"
-							>
-								Sign in
-							</button>
-							{/* <h1 onClick={()}>Sign In</h1> */}
+
+							{authHelper}
+							{langHandler}
 
 							<DarkModeBtn />
 						</div>
 						<div className="md:hidden pt-2">
 							<button
-								onClick={() => setNavbarOpen(!navbarOpen)}
+								onClick={() => setNavbarOpen((prevState) => !prevState)}
 								type="button"
 								className={` block hamburger 
 							               md:hidden focus:outline-none nav-animation 
@@ -90,15 +153,15 @@ const NavBar: React.FC = () => {
 									slide-down text-lg text-white uppercase bg-black 
 									${navbarOpen ? ' block' : 'hidden'}`}
 					>
-						<div className=" gap-7 flex flex-col items-start ">
+						<div
+							className={` gap-7 flex flex-col items-start ${
+								locale === 'ar' && 'items-end pr-10'
+							}`}
+						>
 							{navItemsHandler}
-							<button
-								onClick={signInHandler}
-								className="hover:text-gray-400 md:hover:text-white
-								 			md:hover:border-b-2 border-white"
-							>
-								Sign in
-							</button>
+							{authHelper}
+							{langHandler}
+
 							<DarkModeBtn />
 						</div>
 					</div>

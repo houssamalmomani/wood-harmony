@@ -1,17 +1,27 @@
 import { doc, getDoc } from 'firebase/firestore';
 import ProductDetails from '../../components/products/ProductDetails';
-import { db, snapshot } from '../api/products';
+import { db, snapshot } from '../api/firebaseConfig';
 import Head from 'next/head';
 import { typeDetails } from '../../components/products/ProductList';
 import DeleteItemDb from '../../components/admin/DeleteItemDb';
+import { useSession } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }: any) {
 	const idItems = await snapshot;
-
+	const paths = idItems.docs.flatMap((item) => {
+		return locales.map((locale: string) => {
+			return {
+				params: {
+					productId: item.id.toString(),
+				},
+				locale: locale,
+			};
+		});
+	});
 	return {
-		paths: idItems.docs.map((item) => ({
-			params: { productId: item.id.toString() },
-		})),
+		paths,
+
 		fallback: false,
 	};
 }
@@ -27,12 +37,24 @@ export async function getStaticProps(context: any) {
 		props: {
 			singleItem,
 			productId,
+			...(await serverSideTranslations(
+				context.locale,
+				['productDetails', 'common'],
+				null,
+				['en', 'ar']
+			)),
 		},
 		// revalidate: 5,
 	};
 }
 
-function ProductId(props: { singleItem: typeDetails; productId: string }) {
+function ProductId(props: {
+	singleItem: typeDetails;
+	productId: string;
+	locale: string;
+}) {
+	const { status } = useSession();
+	console.log(props.locale, 'locales');
 	return (
 		<>
 			<Head>
@@ -43,7 +65,7 @@ function ProductId(props: { singleItem: typeDetails; productId: string }) {
 				id={props.productId}
 			/>
 			<div className="my-10 max-w-xs mx-auto">
-				<DeleteItemDb id={props.productId} />
+				{status === 'authenticated' && <DeleteItemDb id={props.productId} />}
 			</div>
 		</>
 	);

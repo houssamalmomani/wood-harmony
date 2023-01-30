@@ -8,6 +8,8 @@ import Btn from '../ui/Btn';
 import { useContext } from 'react';
 import CartContext from '../store/cart-context';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 type ProductDetailsProps = {
 	item: {
@@ -21,7 +23,9 @@ type ProductDetailsProps = {
 };
 
 const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
-	const weight = `${props.item.weight.toFixed(1)}g`;
+	const { locale } = useRouter();
+	const { t } = useTranslation('productDetails');
+	const weight = `${props.item.weight.toFixed(1)} ${t('g')}`;
 	const cartCtx = useContext(CartContext);
 	const cartItemAddHandler = (item: any, id: any) => {
 		cartCtx.addItem({ ...item, amount: 1, id: props.id });
@@ -75,25 +79,28 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 						))}
 					</Swiper>
 				</div>
-				<div className="flex flex-col gap-2 px-5 font-Josefin capitalize">
-					<h2>
-						description:
-						{props.item.description}
-					</h2>
-					<h2>dimensions: {props.item.dimensions}</h2>
-					<h2>weight: {weight} </h2>
-					{amount === 0 ? (
-						<Btn
-							title="Add To Cart"
-							onAdd={cartItemAddHandler.bind(null, props.item, props.id)}
-						/>
-					) : (
-						<Btn
-							title="Remove"
-							onAdd={cartItemRemoveHandler.bind(null, props.id)}
-						/>
-					)}
+				<div
+					className={`flex flex-col gap-4 px-5 font-Josefin capitalize mb-10 ${
+						locale === 'ar' && 'items-end'
+					}`}
+				>
+					<h2 className="flex flex-row-reverse">{`${t('description')}: ${t(
+						props.item.description
+					)}`}</h2>
+					<h2>{`	${t('dimensions')}: ${t(props.item.dimensions)}`}</h2>
+					<h2>{`${t('weight')}: ${t(weight)}`}</h2>
 				</div>
+				{amount === 0 ? (
+					<Btn
+						title={t('Add To Cart')}
+						onAdd={cartItemAddHandler.bind(null, props.item, props.id)}
+					/>
+				) : (
+					<Btn
+						title={t('Remove')}
+						onAdd={cartItemRemoveHandler.bind(null, props.id)}
+					/>
+				)}
 			</div>
 		</div>
 	);

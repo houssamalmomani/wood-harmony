@@ -12,7 +12,7 @@
 }
 @layer components {
 	.header-text {
-		@apply max-w-lg mt-32 mb-32 p-4 text-4xl text-white border-2 dark:border-black md:p-10 md:m-32 md:mx-0 md:text-6xl font-Josefin;
+		@apply max-w-lg mt-32 mb-32 p-4 text-4xl text-white border-2  md:p-10 md:m-32 md:mx-0 md:text-6xl font-Josefin;
 	}
 
 	.nav-animation {

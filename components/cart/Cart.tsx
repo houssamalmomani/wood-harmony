@@ -34,7 +34,7 @@ const Cart: React.FC = () => {
 				<button
 					className={` font-extrabold rounded-full w-10 text-black  relative 
 										${btnClass}`}
-					onClick={() => setOverlays(!overlays)}
+					onClick={() => setOverlays((prevState) => !prevState)}
 				>
 					<div>
 						<Image
@@ -50,7 +50,7 @@ const Cart: React.FC = () => {
 					</div>
 				</button>
 			) : (
-				<BtnClose close={() => setOverlays(!overlays)} />
+				<BtnClose close={() => setOverlays((prevState) => !prevState)} />
 			)}
 			<div
 				className={`fixed  top-0 bottom-0  

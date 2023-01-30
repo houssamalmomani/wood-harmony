@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import ProductsList from '../components/products/ProductList';
-import { db } from './api/products';
+import { db } from './api/firebaseConfig';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export type typeItems = {
 	items: [
@@ -16,7 +17,7 @@ export type typeItems = {
 	];
 };
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
 	const itemsCol = collection(db, 'items');
 	const q = query(itemsCol, orderBy('timestamp', 'desc'));
 	const items = await getDocs(q);
@@ -32,6 +33,10 @@ export async function getStaticProps() {
 				title: doc.data().title,
 				timestamp: doc.data().timestamp?.toDate().getTime(),
 			})),
+			...(await serverSideTranslations(locale, ['common', 'allPro'], null, [
+				'en',
+				'ar',
+			])),
 		},
 		revalidate: 5,
 	};
@@ -49,7 +54,10 @@ export default function AllProducts(props: typeItems) {
 				/>
 			</Head>
 
-			<ProductsList items={props.items} />
+			<ProductsList
+				items={props.items}
+				locale={props.locale}
+			/>
 		</>
 	);
 }

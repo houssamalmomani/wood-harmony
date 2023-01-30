@@ -1,0 +1,65 @@
+{
+	"Home": "الصفحة الرئيسية",
+
+	"Categories": "التصنيفات",
+
+	"All Products": "جميع المنتجات",
+
+	"Sign in": "تسجيل الدخول",
+
+	"Sign out": "تسجيل خروج",
+
+	"Orders": "طلبات الشراء",
+
+	"Add Items": "اضافة منتجات",
+
+	"Our Products": "منتجاتنا",
+
+	"Hand Bracelets": "اساور",
+
+	"Necklaces": "قلادات",
+
+	"Key Chains": "سلسلة مفاتيح",
+
+	"cart is empty": "السلة  فارغة",
+
+	"Tap to see more": "اضغط لترى المزيد",
+
+	"name": "الإسم",
+
+	"please inter your full name": "ادخل الإسم كامل",
+
+	"address": "العنوان",
+
+	"phone number": "رقم الهاتف",
+
+	"please inter a valid number": "ادخل رقم فعال",
+
+	"please inter your": "ادخل",
+
+	"try to be specific": "حاول ادخال عنوان دقيق",
+
+	"confirm": "ارسال",
+
+	"total amount": "مجموع المبلغ",
+
+	"cancel": "الغاء",
+
+	"Click": "انقر",
+
+	"Test": "اختبار",
+
+	"check out": "تأكيد",
+
+	"0": "٠",
+	"1": "١",
+	"2": "٢",
+	"3": "٣",
+	"4": "٤",
+	"5": "٥",
+	"6": "٦",
+	"7": "٧",
+	"8": "٨",
+	"9": "٩",
+	"90": "٩٠"
+}

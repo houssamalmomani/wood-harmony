@@ -1,14 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import CartContext from '../store/cart-context';
 import CartItem from './CartItems';
 import { typeDetails } from '../products/ProductList';
 import CheckoutForm from './CheckoutForm';
 import Btn from '../ui/Btn';
 import LoadingSpin from '../ui/LoadingSpin';
-import { ref, set } from 'firebase/database';
-import { dbR } from '../../pages/api/products';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 const CartForm: React.FC = () => {
+	const { t } = useTranslation('common');
+	const { locale } = useRouter();
+
 	const [checkout, setCheckout] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -19,9 +22,7 @@ const CartForm: React.FC = () => {
 	const totalAmount = `JOD ${cartCtx.totalAmount?.toFixed(2)}`;
 
 	const hasItems = cartCtx.items?.length > 0;
-	useEffect(() => {
-		console.log('cart');
-	});
+
 	const cartItemAddHandler = (item: typeDetails) => {
 		cartCtx.addItem({ ...item, amount: 1 });
 	};
@@ -34,26 +35,19 @@ const CartForm: React.FC = () => {
 		setSubmit(false);
 		cartCtx.clearCart();
 	};
+
 	const submitHandler = async (userData: any) => {
 		try {
 			setIsLoading(true);
 			setError(null);
-			const res = await set(ref(dbR, `/orders/${userData.tel}`), {
-				userInfo: userData,
-				orderItems: cartCtx.items,
+
+			const res = await fetch('/api/orders', {
+				method: 'POST',
+				body: JSON.stringify({
+					userData,
+					orderItems: cartCtx.items,
+				}),
 			});
-			// const res = await fetch(
-			// 	'https://wood-harmony-9b998-default-rtdb.firebaseio.com/orders.json',
-			// 	{
-			// 		method: 'POST',
-			// 		body: JSON.stringify({
-			// 			tel: userData.tel,
-			// 			name: userData.name,
-			// 			address: userData.address,
-			// 			orderItems: cartCtx.items,
-			// 		}),
-			// 	}
-			// );
 			if (!res.ok) {
 				throw new Error('Sorry! Something went wrong please try again!');
 			}
@@ -91,7 +85,7 @@ const CartForm: React.FC = () => {
 							<p>Sorry! Something went wrong please try again! </p>
 							<Btn
 								title="close"
-								onAdd={() => setSubmit(!submit)}
+								onAdd={() => setSubmit((prevState) => !prevState)}
 							/>
 						</>
 					) : (
@@ -115,20 +109,24 @@ const CartForm: React.FC = () => {
 				>
 					{cartItems}
 
-					<div className=" flex flex-row  my-4  justify-between gap-5 ">
+					<div
+						className={`flex flex-row  my-4  justify-between gap-5 ${
+							locale === 'ar' && 'flex-row-reverse'
+						}`}
+					>
 						{!hasItems ? (
-							<p className=" capitalize"> cart is empty</p>
+							<p className=" capitalize"> {t('cart is empty')}</p>
 						) : (
 							<>
 								{!checkout && (
 									<Btn
-										title="check out"
+										title={t('check out')}
 										onAdd={() => setCheckout(!checkout)}
 									/>
 								)}
 								<div className={`flex${checkout ? 'flex-row ' : 'flex-col'}`}>
 									<div className=" font-Josefin capitalize text-sm">
-										Total amount
+										{t('total amount')}
 									</div>
 									<div className="font-Alata text-sm  text-[#00ed00]">
 										{totalAmount}
@@ -140,7 +138,7 @@ const CartForm: React.FC = () => {
 
 					{hasItems && checkout && !isLoading && (
 						<CheckoutForm
-							cancel={() => setCheckout(!checkout)}
+							cancel={() => setCheckout((prevState) => !prevState)}
 							onConfirm={submitHandler}
 						/>
 					)}

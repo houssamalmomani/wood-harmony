@@ -1,5 +1,5 @@
 import { FormEvent, useRef, useState } from 'react';
-import { db, itemsCol, storage } from '../../pages/api/products';
+import { db, itemsCol, storage } from '../../pages/api/firebaseConfig';
 import {
 	addDoc,
 	arrayUnion,
@@ -9,25 +9,18 @@ import {
 } from 'firebase/firestore';
 import { ref, getDownloadURL, uploadBytes } from '@firebase/storage';
 import LoadingSpin from '../ui/LoadingSpin';
+import { useSession } from 'next-auth/react';
 
-const initialState = {
-	title: '',
-	description: '',
-	weight: 0,
-	dimensions: '',
-	price: 0,
-};
 const AddItemDb: React.FC = () => {
+	const { status } = useSession();
 	const [file, setFile] = useState<any>([]);
 	const [progress, setProgress] = useState(false);
-	const [form, setForm] = useState(initialState);
 	const filesHandler = (e: any) => {
 		for (let i = 0; i < e.target.files.length; i++) {
 			const newImages = e.target.files[i];
 			setFile((prev: any) => [...prev, newImages]);
 		}
 	};
-	console.log(file, 'images state');
 
 	const categoryRef = useRef('');
 	const titleRef = useRef('');
@@ -58,24 +51,24 @@ const AddItemDb: React.FC = () => {
 			});
 
 			await Promise.all(
-				file.map((image) => {
+				file.map((image: any) => {
 					const imageRef = ref(storage, `products/${docRef.id}/${image.name}`);
 					uploadBytes(imageRef, image, 'data_url').then(async () => {
 						const downloadURL = await getDownloadURL(imageRef);
 						await updateDoc(doc(db, 'items', docRef.id), {
 							image: arrayUnion(downloadURL),
 						});
-						console.log(downloadURL, 'images url sakdlfj');
 						setProgress(false);
 					});
 				})
 			);
-		} catch {}
+			setFile([]);
+		} catch (error) {}
 	};
 
 	return (
 		<>
-			{progress ? (
+			{progress || status === 'loading' ? (
 				<div className="mx-auto text-center my-[50%]">
 					<LoadingSpin />
 				</div>

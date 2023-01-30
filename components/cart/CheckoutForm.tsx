@@ -1,10 +1,14 @@
 import { FormEvent, MouseEventHandler, useRef, useState } from 'react';
 import Btn from '../ui/Btn';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 const isEmpty = (value: any) => value.trim() === '';
 
 const CheckoutForm: React.FC<{ cancel: MouseEventHandler; onConfirm: any }> = (
 	props
 ) => {
+	const { t } = useTranslation('common');
+	const { locale } = useRouter();
 	const [formInputsValid, setFormInputValid] = useState({
 		name: true,
 		address: true,
@@ -85,34 +89,44 @@ const CheckoutForm: React.FC<{ cancel: MouseEventHandler; onConfirm: any }> = (
 			{formInfo.map((data: any) => (
 				<div
 					key={data.id}
-					className="flex flex-col gap-1 mt-2 "
+					className={`flex flex-col gap-1 mt-2  ${
+						locale === 'ar' && 'items-end '
+					}`}
 				>
 					<label
 						htmlFor={data.htmlFor}
 						className=" font-Josefin capitalize "
 					>
-						{data.info}
+						{t(data.info)}
 					</label>
 					<input
 						type={data.type}
 						id={data.htmlFor}
-						placeholder={data.placeholder}
+						placeholder={t(data.placeholder)}
 						ref={data.ref}
-						className={`rounded-md  border-[1px] font-Josefin pl-2
-                  text-black bg-white drop-shadow-lg h-10 
-									${!data.validity && 'bg-red-200'}`}
+						className={`rounded-md  border-[1px] font-Josefin pl-2 w-full
+                  text-black bg-white drop-shadow-lg h-10 placeholder-slate-400
+									 placeholder-opacity-70 placeholder:italic
+									${!data.validity && 'bg-red-200'} ${
+							locale === 'ar' &&
+							'placeholder:fixed placeholder:right-3 placeholder:bottom-1.5'
+						}`}
 					/>
 					{!data.validity && (
 						<p className=" text-red-600 text-sm capitalize">
-							please inter your {data.info}
+							{`${t('please inter your')} ${t(data.info)}`}
 						</p>
 					)}
 				</div>
 			))}
-			<div className="flex flex-row justify-evenly mt-5">
-				<Btn title="confirm" />
+			<div
+				className={`flex flex-row justify-evenly mt-5 ${
+					locale === 'ar' && 'flex-row-reverse'
+				}`}
+			>
+				<Btn title={t('confirm')} />
 				<Btn
-					title="cancel"
+					title={t('cancel')}
 					onAdd={props.cancel}
 				/>
 			</div>

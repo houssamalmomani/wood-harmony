@@ -1,6 +1,6 @@
 import { getDocs, orderBy, query, where } from 'firebase/firestore';
 import ProductsList from '../../components/products/ProductList';
-import { itemsCol } from '../api/products';
+import { itemsCol } from '../api/firebaseConfig';
 import { typeItems } from '../all-products';
 export async function getStaticProps() {
 	const q = query(

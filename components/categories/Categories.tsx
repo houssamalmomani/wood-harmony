@@ -3,8 +3,10 @@ import Link from 'next/link';
 import SeeMore from '../ui/SeeMore';
 import CardCat from '../ui/CardCat';
 import categoriesData from './CategoriesData';
+import { useTranslation } from 'next-i18next';
 
-const Categories: React.FC = () => {
+const Categories: React.FC = (props) => {
+	const { t } = useTranslation('common');
 	const categoryData = (
 		<>
 			<CardCat>
@@ -16,7 +18,9 @@ const Categories: React.FC = () => {
 					>
 						<Link
 							href={`${url}`}
-							className="hover:text-gray-400 flex  "
+							className={`hover:text-gray-400 flex  ${
+								props.locale === 'ar' && ' '
+							}  `}
 						>
 							<Image
 								className="hidden duration-200 md:block group-hover:scale-110 "
@@ -34,8 +38,12 @@ const Categories: React.FC = () => {
 		                    		from-transparent to-black group-hover:from-gray-50 group-hover:to-white 
 														group-hover:opacity-70 rounded-lg md:rounded-none group-hover:animate-pulse"
 							/>
-							<SeeMore />
-							<h5>{`${title}`}</h5>
+							<SeeMore locale={props.locale} />
+							<h5
+								className={`${props.locale === 'ar' && 'right-0 text-right'}`}
+							>
+								{t(title)}
+							</h5>
 						</Link>
 					</div>
 				))}
@@ -47,7 +55,7 @@ const Categories: React.FC = () => {
 		<div className=" max-w-7xl mx-auto my-40 text-gray-900 px-1 xl:px-0 overflow-hidden max-md:my-24 md:my-80">
 			<div className="flex justify-center mb-10 ">
 				<h2 className="text-3xl dark:text-white text-center  md:text-left md:text-5xl font-Josefin -tracking-tight">
-					Our Products
+					{t('Our Products')}
 				</h2>
 			</div>
 			{categoryData}

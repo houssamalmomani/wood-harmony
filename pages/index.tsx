@@ -1,13 +1,13 @@
-import About from '../components/layout/About';
 import Categories from '../components/categories/Categories';
 import Head from 'next/head';
 import CustomIt from '../components/layout/CustomIt';
 import Hero from '../components/layout/Hero';
-import { useState } from 'react';
-import AddItemDb from '../components/admin/AddItemDb';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
-export default function Home() {
-	const [isLogIn, setIsLogIn] = useState(true);
+export default function Home(props) {
+	const { t } = useTranslation();
 	return (
 		<>
 			<Head>
@@ -17,13 +17,24 @@ export default function Home() {
 					content=""
 				/>
 			</Head>
-			{!isLogIn && (
-				<>
-					<Hero /> <Categories /> <CustomIt />
-				</>
-			)}
 
-			{isLogIn && <AddItemDb />}
+			<>
+				<Hero locale={props.locale} /> <Categories locale={props.locale} />{' '}
+				<CustomIt />
+			</>
 		</>
 	);
+}
+
+export async function getStaticProps({ locale }) {
+	return {
+		props: {
+			locale,
+			...(await serverSideTranslations(locale, ['home', 'common'], null, [
+				'en',
+				'ar',
+			])),
+			// Will be passed to the page component as props
+		},
+	};
 }
