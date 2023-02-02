@@ -24,7 +24,6 @@ export async function getStaticProps({ locale }: any) {
 
 	return {
 		props: {
-			...(await serverSideTranslations(locale, ['common'], null)),
 			items: items.docs.map((doc) => ({
 				id: doc.id,
 				category: doc.data().category,
@@ -34,6 +33,10 @@ export async function getStaticProps({ locale }: any) {
 				title: doc.data().title,
 				timestamp: doc.data().timestamp?.toDate().getTime(),
 			})),
+			...(await serverSideTranslations(locale, ['allPro', 'common'], null, [
+				'ar',
+				'en',
+			])),
 		},
 		revalidate: 5,
 	};
