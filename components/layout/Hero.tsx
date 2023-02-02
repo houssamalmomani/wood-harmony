@@ -4,19 +4,17 @@ import bg from '../../public/img3.jpg';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
-const Hero: React.FC = (props) => {
+const Hero: React.FC = () => {
 	const { locale } = useRouter();
 	const { t } = useTranslation('home');
 	return (
 		<header className="drop-shadow-lg relative  ">
 			<Image
-				className=" object-cover  "
-				src={bg}
+				className="object-cover"
+				src={'/img3.jpg'}
 				fill
 				alt="main pic"
-				quality={50}
 				priority
-				placeholder="blur"
 			/>
 
 			<div

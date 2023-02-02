@@ -73,7 +73,7 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 									className=" rounded-lg "
 									width={700}
 									height={700}
-									quality={70}
+									quality={80}
 									priority
 								/>
 							</SwiperSlide>

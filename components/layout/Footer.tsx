@@ -1,7 +1,6 @@
 import Image, { StaticImageData } from 'next/image';
-import instagram from '../../public/assets/icon-instagram.svg';
-import facebook from '../../public/assets/icon-facebook.svg';
-import whatsapp from '../../public/icon-whatsapp.svg';
+import instagram from '../../public/icon-instagram.svg';
+import facebook from '../../public/icon-facebook.svg';
 
 const Footer: React.FC = () => {
 	const icons: (string | StaticImageData)[][] = [

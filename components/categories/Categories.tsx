@@ -31,12 +31,17 @@ const Categories: React.FC = () => {
 								className="hidden duration-200 md:block group-hover:scale-110 "
 								src={image}
 								alt=""
+								quality={70}
 								width={500}
+								height={500}
 							/>
 							<Image
 								className="  md:hidden group-hover:scale-110 duration-200 rounded-lg "
 								src={imageM}
 								alt=""
+								quality={70}
+								width={500}
+								height={500}
 							/>
 							{loading ? (
 								<div

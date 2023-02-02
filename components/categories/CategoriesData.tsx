@@ -1,15 +1,14 @@
-import hand from '../../public/handb2.jpg';
-import handM from '../../public/fliped5.jpg';
-import neckM from '../../public/fliped2.jpg';
-import neck from '../../public/necklaces.jpg';
-import key from '../../public/keyD1.jpg';
-import keyM from '../../public/keym.jpg';
 import { StaticImageData } from 'next/image';
 
 const categoriesData: (string | StaticImageData)[][] = [
-	['Hand Bracelets', '/categories/handBracelets', hand, handM],
-	['Necklaces', '/categories/necklaces', neck, neckM],
-	['Key Chains', '/categories/keychains', key, keyM],
+	[
+		'Hand Bracelets',
+		'/categories/handBracelets',
+		'/handb2.jpg',
+		'/fliped5.jpg',
+	],
+	['Necklaces', '/categories/necklaces', '/necklaces.jpg', '/fliped2.jpg'],
+	['Key Chains', '/categories/keychains', '/keyD1.jpg', '/keym.jpg'],
 ];
 
 export default categoriesData;

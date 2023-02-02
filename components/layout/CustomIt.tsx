@@ -1,14 +1,5 @@
 import Image, { StaticImageData } from 'next/image';
-import hand from '../../public/assets/mobile/hand2.jpg';
-import img1 from '../../public/assets/mobile/img1R.jpg';
-import hand1 from '../../public/assets/mobile/hand1.jpg';
-import img3 from '../../public/assets/mobile/img3.jpg';
-import img5 from '../../public/assets/mobile/img9.jpg';
-import img7 from '../../public/assets/mobile/img7.jpg';
-import hand5 from '../../public/assets/mobile/hand5.jpg';
-import hand6 from '../../public/assets/mobile/hand6.jpg';
-import img6 from '../../public/necklaces.jpg';
-import img4 from '../../public/assets/desktop/img4.jpg';
+
 import { ReactElement } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/dist/client/router';
@@ -17,16 +8,16 @@ const CustomIt: React.FC<{}> = () => {
 	const { locale } = useRouter();
 	const { t } = useTranslation('home');
 	const gallery: (string | StaticImageData)[][] = [
-		[img3, 'col-span-3', 'i1'],
-		[hand5, 'col-span-2', 'i2'],
-		[hand1, 'col-span-3 col-start-1 row-end-1', 'i3'],
-		[hand, 'row-end-2 col-start-3 col-span-4', 'i4'],
-		[img5, 'col-span-2', 'i5'],
-		[img1, 'col-span-2 col-start1 row-start-1', 'i6'],
-		[img7, 'col-span-2', 'i7'],
-		[hand6, 'col-span-3', 'i8'],
-		[img6, 'col-span-1', 'i9'],
-		[img4, 'col-span-2', 'i10'],
+		['/imgH.jpg', 'col-span-3', 'i1'],
+		['/hand5.jpg', 'col-span-2', 'i2'],
+		['/hand1.jpg', 'col-span-3 col-start-1 row-end-1', 'i3'],
+		['/hand2.jpg', 'row-end-2 col-start-3 col-span-4', 'i4'],
+		['/img9.jpg', 'col-span-2', 'i5'],
+		['/img1R.jpg', 'col-span-2 col-start1 row-start-1', 'i6'],
+		['/img7.jpg', 'col-span-2', 'i7'],
+		['/hand6.jpg', 'col-span-3', 'i8'],
+		['/necklaces.jpg', 'col-span-1', 'i9'],
+		['/img4.jpg', 'col-span-2', 'i10'],
 	];
 
 	const galleryHandler: ReactElement<any, any> = (
@@ -40,8 +31,9 @@ const CustomIt: React.FC<{}> = () => {
 						className="w-full h-full object-cover "
 						src={image}
 						alt=""
-						quality={10}
-						placeholder="blur"
+						quality={70}
+						width={500}
+						height={500}
 					/>
 				</div>
 			))}
