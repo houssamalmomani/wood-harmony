@@ -4,13 +4,17 @@ import SeeMore from '../ui/SeeMore';
 import CardCat from '../ui/CardCat';
 import categoriesData from './CategoriesData';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-const Categories: React.FC = (props) => {
+const Categories: React.FC = () => {
+	const [loading, setIsLoading] = useState(false);
+	const { locale } = useRouter();
 	const { t } = useTranslation('common');
 	const categoryData = (
 		<>
 			<CardCat>
-				{categoriesData.map(([title, url, image, imageM]) => (
+				{categoriesData.map(([title, url, image, imageM]: any) => (
 					<div
 						key={`${title}`}
 						className="group overflow-hidden md:w-1/3 drop-shadow-lg shadow-sm
@@ -18,8 +22,9 @@ const Categories: React.FC = (props) => {
 					>
 						<Link
 							href={`${url}`}
+							onClick={() => setIsLoading((prevState) => !prevState)}
 							className={`hover:text-gray-400 flex  ${
-								props.locale === 'ar' && ' '
+								locale === 'ar' && ' '
 							}  `}
 						>
 							<Image
@@ -33,16 +38,21 @@ const Categories: React.FC = (props) => {
 								src={imageM}
 								alt=""
 							/>
-							<div
-								className="absolute top-0 bottom-0 right-0 left-0 bg-gradient-to-b 
-		                    		from-transparent to-black group-hover:from-gray-50 group-hover:to-white 
-														group-hover:opacity-70 rounded-lg md:rounded-none group-hover:animate-pulse"
-							/>
-							<SeeMore locale={props.locale} />
-							<h5
-								className={`${props.locale === 'ar' && 'right-0 text-right'}`}
-							>
-								{t(title)}
+							{loading ? (
+								<div
+									className="absolute top-0 bottom-0 right-0 left-0 bg-gradient-to-b 
+									from-transparent  group-hover:from-gray-50 group-hover:to-white 
+									group-hover:opacity-70 rounded-lg md:rounded-none group-hover:animate-pulse"
+								></div>
+							) : (
+								<div
+									className="absolute top-0 bottom-0 right-0 left-0 opacity-90
+									bg-gradient-to-b from-transparent to-black"
+								></div>
+							)}
+							<SeeMore />
+							<h5 className={`${locale === 'ar' && 'right-0 text-right'}`}>
+								{`${t(title)}`}
 							</h5>
 						</Link>
 					</div>
@@ -52,9 +62,15 @@ const Categories: React.FC = (props) => {
 	);
 
 	return (
-		<div className=" max-w-7xl mx-auto my-40 text-gray-900 px-1 xl:px-0 overflow-hidden max-md:my-24 md:my-80">
-			<div className="flex justify-center mb-10 ">
-				<h2 className="text-3xl dark:text-white text-center  md:text-left md:text-5xl font-Josefin -tracking-tight">
+		<div
+			className=" max-w-7xl mx-auto my-40 text-gray-900 
+		px-1 xl:px-0 overflow-hidden max-md:my-24 md:my-80"
+		>
+			<div className="flex justify-center mb-16 ">
+				<h2
+					className="text-3xl dark:text-white text-center 
+				 md:text-left md:text-5xl font-Josefin -tracking-tight"
+				>
 					{t('Our Products')}
 				</h2>
 			</div>

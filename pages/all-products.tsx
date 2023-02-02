@@ -17,13 +17,14 @@ export type typeItems = {
 	];
 };
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale }: any) {
 	const itemsCol = collection(db, 'items');
 	const q = query(itemsCol, orderBy('timestamp', 'desc'));
 	const items = await getDocs(q);
 
 	return {
 		props: {
+			...(await serverSideTranslations(locale, ['common'], null)),
 			items: items.docs.map((doc) => ({
 				id: doc.id,
 				category: doc.data().category,
@@ -33,10 +34,6 @@ export async function getStaticProps({ locale }) {
 				title: doc.data().title,
 				timestamp: doc.data().timestamp?.toDate().getTime(),
 			})),
-			...(await serverSideTranslations(locale, ['common', 'allPro'], null, [
-				'en',
-				'ar',
-			])),
 		},
 		revalidate: 5,
 	};
@@ -54,10 +51,7 @@ export default function AllProducts(props: typeItems) {
 				/>
 			</Head>
 
-			<ProductsList
-				items={props.items}
-				locale={props.locale}
-			/>
+			<ProductsList items={props.items} />
 		</>
 	);
 }

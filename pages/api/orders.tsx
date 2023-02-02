@@ -1,12 +1,7 @@
-import { onValue, ref, set } from 'firebase/database';
+import { ref, set } from 'firebase/database';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { dbR, snapshot } from './firebaseConfig';
-import { addDoc, collection } from 'firebase/firestore';
-// export const config = {
-// 	api: {
-// 		bodyParser: false,
-// 	},
-// };
+import { dbR } from './firebaseConfig';
+
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
@@ -20,11 +15,4 @@ export default async function handler(
 		message:
 			'thank you for choose our product we will contact you as soon as possible',
 	});
-	// if (req.method === 'GET') {
-	// 	const ordersRef = ref(dbR, '/orders/');
-	// 	onValue(ordersRef, (snapshot) => {
-	// 		const data = snapshot.val();
-	// 	});
-	// 	res.status(200).json({ orders: ordersRef });
-	// }
 }

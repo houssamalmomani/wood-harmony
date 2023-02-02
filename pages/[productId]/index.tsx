@@ -32,17 +32,11 @@ export async function getStaticProps(context: any) {
 	const q = await getDoc(select);
 	const items = q.data();
 	const singleItem = JSON.parse(JSON.stringify(items));
-	console.log(singleItem, 'items');
 	return {
 		props: {
 			singleItem,
 			productId,
-			...(await serverSideTranslations(
-				context.locale,
-				['productDetails', 'common'],
-				null,
-				['en', 'ar']
-			)),
+			...(await serverSideTranslations(context.locale, ['common'], null)),
 		},
 		// revalidate: 5,
 	};
@@ -54,7 +48,6 @@ function ProductId(props: {
 	locale: string;
 }) {
 	const { status } = useSession();
-	console.log(props.locale, 'locales');
 	return (
 		<>
 			<Head>

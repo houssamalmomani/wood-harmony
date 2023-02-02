@@ -51,9 +51,7 @@ const CartForm: React.FC = () => {
 			if (!res.ok) {
 				throw new Error('Sorry! Something went wrong please try again!');
 			}
-		} catch (error) {
-			setError(error.message);
-		}
+		} catch (error) {}
 		setSubmit(true);
 		setIsLoading(false);
 	};
@@ -82,20 +80,21 @@ const CartForm: React.FC = () => {
 				>
 					{error ? (
 						<>
-							<p>Sorry! Something went wrong please try again! </p>
+							<p>{t('Sorry, Something went wrong please try again!')} </p>
 							<Btn
-								title="close"
+								title={t('close')}
 								onAdd={() => setSubmit((prevState) => !prevState)}
 							/>
 						</>
 					) : (
 						<>
 							<p>
-								thank you for choose our product we will contact you as soon as
-								possible
+								{t(
+									'thank you for choose our product we will contact you as soon as possible'
+								)}
 							</p>
 							<Btn
-								title="close"
+								title={t('close')}
 								onAdd={cartSendHandler}
 							/>
 						</>
@@ -154,19 +153,3 @@ const CartForm: React.FC = () => {
 };
 
 export default CartForm;
-
-// useEffect(() => {
-// 	// Perform localStorage action
-// 	const items = localStorage.getItem('items');
-// }, [cartCtx.items]);
-// const f = () => {
-// 	if (typeof window !== 'undefined') {
-// 		// Perform localStorage action
-// 		const items = localStorage.getItem('items');
-// 		const i = items ? JSON.parse(items) : [];
-// 		return i;
-// 	}
-// };
-// useEffect(() => {
-// 	localStorage.setItem('items', JSON.stringify(cartCtx.items));
-// }, [cartCtx.addItem]);

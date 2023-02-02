@@ -11,8 +11,10 @@ import img6 from '../../public/necklaces.jpg';
 import img4 from '../../public/assets/desktop/img4.jpg';
 import { ReactElement } from 'react';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/dist/client/router';
 
 const CustomIt: React.FC<{}> = () => {
+	const { locale } = useRouter();
 	const { t } = useTranslation('home');
 	const gallery: (string | StaticImageData)[][] = [
 		[img3, 'col-span-3', 'i1'],
@@ -48,9 +50,14 @@ const CustomIt: React.FC<{}> = () => {
 
 	return (
 		<section className=" max-w-7xl mx-auto mt-40 mb-1 lg:mb-2 px-1  ">
-			<div className="  flex justify-center mb-12 ">
+			<div className="  flex justify-center mb-16 ">
 				{' '}
-				<h1 className="-tracking-tight text-3xl dark:text-white text-center  md:text-left md:text-5xl font-Josefin">
+				<h1
+					className={`-tracking-tight text-3xl dark:text-white
+				 text-center md:text-5xl font-Josefin  ${
+						locale === 'ar' && 'max-w-sm md:max-w-lg'
+					} `}
+				>
 					{t('Express yourself with customizables')}
 				</h1>
 			</div>

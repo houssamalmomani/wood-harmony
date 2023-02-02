@@ -1,13 +1,11 @@
-import { useEffect, useReducer } from 'react';
+import { useReducer } from 'react';
 
 import CartContext from './cart-context';
 import { typeDetails } from '../products/ProductList';
-import dynamic from 'next/dynamic';
 
 const defaultCartState = {
 	items: [],
 	totalAmount: 0,
-	amount: 0,
 };
 const cartReducer = (state: any, action: any) => {
 	if (action.type === 'ADD') {

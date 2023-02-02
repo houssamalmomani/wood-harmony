@@ -21,7 +21,7 @@ const DeleteItemDb: React.FC<{ id: string }> = (props) => {
 		try {
 			await deleteDoc(docRef);
 			throw new Error('Sorry something went wrong try later!');
-		} catch {
+		} catch (error) {
 			Error.toString();
 		}
 		setIsLoading(false);

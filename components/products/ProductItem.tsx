@@ -2,12 +2,15 @@ import Image from 'next/image';
 import Card from '../ui/Card';
 import { useRouter } from 'next/router';
 import { typeDetails } from './ProductList';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import CartContext from '../store/cart-context';
 import BtnMin from '../ui/BtnMin';
 import BtnItem from '../ui/BtnItem';
+import { useTranslation } from 'next-i18next';
 
 const ProductItem: React.FC<typeDetails> = (props) => {
+	const { locale } = useRouter();
+	const { t } = useTranslation('common');
 	const [isLoading, setIsLoading] = useState(false);
 	const cartCtx = useContext(CartContext);
 	const addItemToCartHandler = (amount: number) => {
@@ -24,7 +27,9 @@ const ProductItem: React.FC<typeDetails> = (props) => {
 	};
 	const { items } = cartCtx;
 
-	const amount = items?.find((item: any) => item.id === props.id)?.amount || 0;
+	let amount = items?.find((item: any) => item.id === props.id)
+		? props.amount
+		: 0;
 
 	const router = useRouter();
 	const ProductsDetailsHandler = () => {
@@ -32,7 +37,6 @@ const ProductItem: React.FC<typeDetails> = (props) => {
 
 		router.push('/' + props.id);
 	};
-
 	return (
 		<Card>
 			<li className="max-sm:rounded-lg   ">
@@ -54,24 +58,28 @@ const ProductItem: React.FC<typeDetails> = (props) => {
 					{isLoading && (
 						<div
 							className="absolute top-0 bottom-0 right-0 left-0
-													bg-gradient-to-b from-gray-50 to-white
-													opacity-70 rounded-lg md:rounded-none
-									 				animate-pulse text-center py-[45%]"
+						bg-gradient-to-b from-gray-50 to-white
+						opacity-70 rounded-lg md:rounded-none
+						animate-pulse text-center py-[45%]"
 						>
 							<h1 className="uppercase font-Orbitron text-black">
-								loading ....
+								{t('loading ....')}
 							</h1>
 						</div>
 					)}
 				</div>
-				<div className="p-4 flex flex-row items-end justify-between">
-					<div>
-						<h3 className=" font-Josefin font-bold">{props.title}</h3>
-						<p className=" font-Josefin">{props.description}</p>
+				<div
+					className={`p-4 flex flex-row items-end justify-between 
+					${locale === 'ar' && ' flex-row-reverse justify-start'}`}
+				>
+					<div className={` ${locale === 'ar' && 'flex flex-col items-end'}`}>
+						<h3 className=" font-Josefin font-bold">{t(props.title)}</h3>
+						<p className=" font-Josefin">{t(props.description)}</p>
+
 						<p className="font-bold"> {`JOD ${props.price.toFixed(2)}`}</p>
 					</div>
 					{amount === 0 ? (
-						<BtnItem onAdd={addItemToCartHandler.bind(null, 1)} />
+						<BtnItem onAdd={addItemToCartHandler.bind(0, props.amount)} />
 					) : (
 						<BtnMin onAdd={cartItemRemoveHandler.bind(null, props.id)} />
 					)}

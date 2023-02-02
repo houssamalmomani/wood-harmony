@@ -69,6 +69,10 @@
 	filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg)
 		brightness(118%) contrast(119%);
 }
+.svg-gray {
+	filter: invert(48%) sepia(79%) saturate(1%) hue-rotate(86deg) brightness(118%)
+		contrast(75%);
+}
 .lds-ring {
 	display: inline-block;
 	position: relative;

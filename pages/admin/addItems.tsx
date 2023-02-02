@@ -1,7 +1,8 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import AddItemDb from '../../components/admin/AddItemDb';
 import { getSession } from 'next-auth/react';
 
-const addItems: any = (): any => {
+const AddItems: any = (): any => {
 	return <AddItemDb />;
 };
 
@@ -18,7 +19,14 @@ export async function getServerSideProps(context: any) {
 	return {
 		props: {
 			session,
+
+			...(await serverSideTranslations(
+				context.locale,
+				['home', 'common'],
+				null,
+				['en', 'ar']
+			)),
 		},
 	};
 }
-export default addItems;
+export default AddItems;

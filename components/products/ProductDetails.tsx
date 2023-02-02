@@ -24,7 +24,7 @@ type ProductDetailsProps = {
 
 const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 	const { locale } = useRouter();
-	const { t } = useTranslation('productDetails');
+	const { t } = useTranslation('common');
 	const weight = `${props.item.weight.toFixed(1)} ${t('g')}`;
 	const cartCtx = useContext(CartContext);
 	const cartItemAddHandler = (item: any, id: any) => {
@@ -35,9 +35,9 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 	};
 
 	const { items } = cartCtx;
-	const amount: number =
-		items.find((item: any) => item.id === props.id)?.amount || 0;
-
+	let amount = items?.find((item: any) => item.id === props.id)
+		? props.amount
+		: 0;
 	return (
 		<div className="w-auto ">
 			<div
@@ -50,6 +50,7 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 				<div className=" w-full p-5">
 					<Swiper
 						style={{
+							/* @ts-ignore */
 							'--swiper-pagination-bullet-inactive-color': '#999999',
 							'--swiper-pagination-bullet-inactive-opacity': '1',
 							'--swiper-pagination-bullet-size': '10px',
@@ -80,13 +81,11 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 					</Swiper>
 				</div>
 				<div
-					className={`flex flex-col gap-4 px-5 font-Josefin capitalize mb-10 ${
-						locale === 'ar' && 'items-end'
-					}`}
+					className={`flex flex-col gap-4 px-5 font-Josefin capitalize mb-10 
+					${locale === 'ar' && 'items-end'}`}
 				>
-					<h2 className="flex flex-row-reverse">{`${t('description')}: ${t(
-						props.item.description
-					)}`}</h2>
+					<h2 className="flex flex-row">{`${t('description')}: 
+					${t(props.item.description)}`}</h2>
 					<h2>{`	${t('dimensions')}: ${t(props.item.dimensions)}`}</h2>
 					<h2>{`${t('weight')}: ${t(weight)}`}</h2>
 				</div>

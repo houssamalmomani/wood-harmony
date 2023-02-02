@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from 'react';
+import { useState } from 'react';
 import { db, itemsCol, storage } from '../../pages/api/firebaseConfig';
 import {
 	addDoc,
@@ -10,11 +10,14 @@ import {
 import { ref, getDownloadURL, uploadBytes } from '@firebase/storage';
 import LoadingSpin from '../ui/LoadingSpin';
 import { useSession } from 'next-auth/react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const AddItemDb: React.FC = () => {
 	const { status } = useSession();
 	const [file, setFile] = useState<any>([]);
 	const [progress, setProgress] = useState(false);
+
 	const filesHandler = (e: any) => {
 		for (let i = 0; i < e.target.files.length; i++) {
 			const newImages = e.target.files[i];
@@ -22,61 +25,116 @@ const AddItemDb: React.FC = () => {
 		}
 	};
 
-	const categoryRef = useRef('');
-	const titleRef = useRef('');
-	const descriptionRef = useRef('');
-	const weightRef = useRef(0);
-	const dimensionsRef = useRef('');
-	const priceRef = useRef(0);
+	const formik = useFormik({
+		initialValues: {
+			title: '',
+			description: '',
+			category: '',
+			dimensions: '',
+			weight: 0,
+			price: 0,
+		},
+		validationSchema: Yup.object({
+			title: Yup.string()
+				.max(20, 'title must be 20 characters or less !')
+				.required('please inter a title'),
+			description: Yup.string()
+				.max(30, 'description must be 30 characters or less !')
+				.required('please inter a title'),
+			category: Yup.string().required('please inter category'),
+			dimensions: Yup.string()
+				.max(20, 'dimensions must be 10 characters or less !')
+				.required('please inter a dimensions'),
+			weight: Yup.number()
+				.max(300, 'weight must be 300 g or less !')
+				.required('please inter a weight'),
+			price: Yup.number()
+				.max(100, 'price must be 100 JOD  or less !')
+				.required('please inter a price'),
+		}),
+		onSubmit: async (values) => {
+			setProgress(true);
+			try {
+				const docRef = await addDoc(itemsCol, {
+					category: values.category,
+					title: values.title,
+					description: values.description,
+					weight: values.weight,
+					dimensions: values.dimensions,
+					price: values.price,
+					amount: 1,
+					timestamp: serverTimestamp(),
+				});
+
+				await Promise.all(
+					file.map((image: any) => {
+						const imageRef = ref(
+							storage,
+							`products/${docRef.id}/${image.name}`
+						);
+						uploadBytes(imageRef, image).then(async () => {
+							const downloadURL = await getDownloadURL(imageRef);
+							await updateDoc(doc(db, 'items', docRef.id), {
+								image: arrayUnion(downloadURL),
+							});
+							setProgress(false);
+						});
+					})
+				);
+				setFile([]);
+			} catch (error) {}
+		},
+	});
 
 	const formData = [
-		['title', 'text', titleRef],
-		['description', 'text', descriptionRef],
-		['dimensions', 'text', dimensionsRef],
-		['weight', 'number', weightRef],
-		['price', 'number', priceRef],
+		[
+			'title',
+			'text',
+			formik.values.title,
+			formik.errors.title,
+			formik.touched.title,
+		],
+		[
+			'description',
+			'text',
+			formik.values.description,
+			formik.errors.description,
+			formik.touched.description,
+		],
+		[
+			'dimensions',
+			'text',
+			formik.values.dimensions,
+			formik.errors.dimensions,
+			formik.touched.dimensions,
+		],
+		[
+			'weight',
+			'number',
+			formik.values.weight,
+			formik.errors.weight,
+			formik.touched.weight,
+		],
+		[
+			'price',
+			'number',
+			formik.values.price,
+			formik.errors.price,
+			formik.touched.price,
+		],
 	];
-	const confirmHandler = async (event: FormEvent) => {
-		event.preventDefault();
-		setProgress(true);
-		try {
-			const docRef = await addDoc(itemsCol, {
-				category: categoryRef.current.value,
-				title: titleRef.current.value,
-				description: descriptionRef.current.value,
-				weight: +weightRef.current.value,
-				dimensions: dimensionsRef.current.value,
-				price: +priceRef.current.value,
-				timestamp: serverTimestamp(),
-			});
-
-			await Promise.all(
-				file.map((image: any) => {
-					const imageRef = ref(storage, `products/${docRef.id}/${image.name}`);
-					uploadBytes(imageRef, image, 'data_url').then(async () => {
-						const downloadURL = await getDownloadURL(imageRef);
-						await updateDoc(doc(db, 'items', docRef.id), {
-							image: arrayUnion(downloadURL),
-						});
-						setProgress(false);
-					});
-				})
-			);
-			setFile([]);
-		} catch (error) {}
-	};
 
 	return (
 		<>
 			{progress || status === 'loading' ? (
-				<div className="mx-auto text-center my-[50%]">
+				<div className="flex items-center justify-center h-screen">
 					<LoadingSpin />
 				</div>
 			) : (
 				<form
-					onSubmit={confirmHandler}
+					onSubmit={formik.handleSubmit}
 					id="form"
-					className="flex flex-col  mt-24 md:mt-44 max-w-3xl mx-auto gap-10 px-2  capitalize"
+					className="flex flex-col  mt-24 md:mt-44 max-w-3xl mx-auto gap-10 px-2 capitalize "
 				>
 					<label htmlFor="files">choose images</label>
 					<input
@@ -86,39 +144,56 @@ const AddItemDb: React.FC = () => {
 						name="file"
 						multiple
 					/>
-					<div className="flex flex-col gap-5">
+					<div className="flex flex-col">
 						<label
 							htmlFor="category"
-							className=" "
+							className={`h-12 rounded-md ${
+								formik.touched.category &&
+								formik.errors.category &&
+								'text-red-400 '
+							}`}
 						>
-							Category:
+							category:
 						</label>
 						<select
 							name="category"
 							id="category"
-							ref={categoryRef}
-							className="h-12 rounded-md"
+							onChange={formik.handleChange}
+							value={formik.values.category}
+							className={`h-12 rounded-md ${
+								formik.touched.category &&
+								formik.errors.category &&
+								'text-red-400 border-2 border-red-400'
+							}`}
 						>
+							<option></option>
 							<option value="hand-bracelets"> hand bracelets</option>
 							<option value="neck-laces">neck laces</option>
 							<option value="key-chains">key chains</option>
 						</select>
 					</div>
 					<div></div>
-					{formData.map(([htmlFor, type, ref]) => (
+					{formData.map(([htmlFor, type, val, error, touch]: any) => (
 						<div
-							key={Math.random()}
+							key={htmlFor}
 							className="flex flex-col gap-5"
 						>
-							<label htmlFor={htmlFor}>{htmlFor}:</label>
+							<label
+								htmlFor={htmlFor}
+								className={` ${touch && error && 'text-red-400 '}`}
+							>
+								{`${touch && error ? error : htmlFor}:`}
+							</label>
 							<input
-								id={htmlFor}
+								id={`${htmlFor}`}
 								type={type}
 								placeholder={htmlFor}
-								ref={ref}
+								onChange={formik.handleChange}
+								value={val}
+								onBlur={formik.handleBlur}
 								className={`rounded-md  border-[1px] font-Josefin pl-2
 						text-black bg-white drop-shadow-lg h-10 
-						`}
+						${touch && error && 'text-red-400 border-2 border-red-400'}`}
 								// ${!data.validity && 'bg-red-200'}
 							/>
 						</div>

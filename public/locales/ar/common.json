@@ -15,17 +15,27 @@
 
 	"Our Products": "منتجاتنا",
 
-	"Hand Bracelets": "اساور",
+	"Hand Bracelets": "اساور يد",
 
 	"Necklaces": "قلادات",
 
-	"Key Chains": "سلسلة مفاتيح",
+	"Key Chains": "سلاسل مفاتيح",
 
 	"cart is empty": "السلة  فارغة",
 
 	"Tap to see more": "اضغط لترى المزيد",
 
 	"name": "الإسم",
+
+	"please inter your name": "من فضلك ادخل الإسم",
+
+	"please inter your phone number!": "من فضلك ادخل رقم الهاتف",
+
+	"please inter a valid number with 10 or 15 number": "من فضلك ادخل رقم هاتف مكون من عشرة خانات او خمسة عشر",
+
+	"please inter a valid number between 10 and 15 number": "من فضلك ادخل رقم هاتف اقل من خمسة عشر خانة",
+
+	"please inter  your address!": "من فضلك ادخل العنوان",
 
 	"please inter your full name": "ادخل الإسم كامل",
 
@@ -47,19 +57,30 @@
 
 	"Click": "انقر",
 
-	"Test": "اختبار",
+	"Test": "عينة",
+
+	"test": "عينة",
+
+	"close": "إغلاق",
 
 	"check out": "تأكيد",
 
-	"0": "٠",
-	"1": "١",
-	"2": "٢",
-	"3": "٣",
-	"4": "٤",
-	"5": "٥",
-	"6": "٦",
-	"7": "٧",
-	"8": "٨",
-	"9": "٩",
-	"90": "٩٠"
+	"thank you for choose our product we will contact you as soon as possible": "شكرا لك لإختيارك منتجنا الفريد, سوف نتواصل معك في اقرب وقت ممكن",
+
+	"Sorry, Something went wrong please try again!": ".نعتذر عن هذا الخطأ, لم يصلنا طلبك الرجاء المحاولة مرة اخرى",
+
+	"loading ....": "... جاري التحميل",
+
+	"This is a test unit": "وحدة تجربة",
+
+	"Title": "العنوان",
+
+	"every item is a unique item so you can only choose one item": "منتجاتنا فريدة من نوعها لذلك لا يمكنك اختيار الا منتج واحد",
+
+	"description": "الوصف",
+	"dimensions": "الأبعاد",
+	"weight": "الوزن",
+	"Add To Cart": "اضف الى السلة",
+	"Remove": "ازالة",
+	"g": "ج"
 }

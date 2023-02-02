@@ -8,9 +8,10 @@ export type typeDetails = {
 	description: string;
 	price: number;
 	id: string;
+	amount: number;
 };
 const ProductsList: React.FC<typeItems> = (props) => {
-	const { t } = useTranslation('allPro');
+	const { t } = useTranslation('common');
 	return (
 		<div className="max-w-7xl mx-auto">
 			<h1 className="text-center mt-32 md:mt-44 md:mb-24 mb-12 font-Josefin capitalize md:text-2xl text-xl">
@@ -26,11 +27,11 @@ const ProductsList: React.FC<typeItems> = (props) => {
 				max-[320px]:grid-cols-1 
 				"
 			>
-				{props.items.map((item: typeDetails) => (
+				{props.items.map((item: any) => (
 					<ProductItem
 						key={item.id}
 						{...item}
-						locale={props.locale}
+						amount={1}
 					/>
 				))}
 			</ul>
