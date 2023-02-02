@@ -38,6 +38,10 @@ export async function getStaticProps({ locale }: any) {
 				'en',
 			])),
 		},
+<<<<<<< HEAD
+=======
+		
+>>>>>>> a800690cd17ab4311da5bc87fc834f4172f1df15
 	};
 }
 
