@@ -18,7 +18,7 @@ export function App({ Component, pageProps }: AppProps) {
 			>
 				<CartProvider>
 					<Layout>
-						<AnimatePresence exitBeforeEnter>
+						<AnimatePresence>
 							<motion.div
 								key={router.route}
 								initial="initialState"
@@ -28,15 +28,15 @@ export function App({ Component, pageProps }: AppProps) {
 								variants={{
 									initialState: {
 										opacity: 0,
-										// clipPath: 'polygon(0 0,100% 0, 100% 100% , 0% 100%',
+										clipPath: 'polygon(0 0,100% 0, 100% 100% , 0% 100%',
 									},
 									animateState: {
 										opacity: 1,
-										// clipPath: 'polygon(0 0,100% 0, 100% 100% , 0% 100%',
+										clipPath: 'polygon(0 0,100% 0, 100% 100% , 0% 100%',
 									},
 									exitState: {
 										opacity: 0,
-										// clipPath: 'polygon(50% 0,50% 0, 50% 100% , 50% 100%',
+										clipPath: 'polygon(50% 0,50% 0, 50% 100% , 50% 100%',
 									},
 								}}
 								className="base-page-size"

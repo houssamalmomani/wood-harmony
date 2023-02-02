@@ -1,6 +1,4 @@
-import React from 'react';
 import Image from 'next/image';
-import bg from '../../public/img3.jpg';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 

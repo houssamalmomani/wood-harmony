@@ -7,6 +7,7 @@ import Btn from '../ui/Btn';
 import LoadingSpin from '../ui/LoadingSpin';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import Confetti from 'react-confetti';
 
 const CartForm: React.FC = () => {
 	const { t } = useTranslation('common');
@@ -148,6 +149,7 @@ const CartForm: React.FC = () => {
 					)}
 				</div>
 			)}
+			{!error && submit && <Confetti recycle={false} />}
 		</>
 	);
 };

@@ -31,7 +31,6 @@ const CustomIt: React.FC<{}> = () => {
 						className="w-full h-full object-cover "
 						src={image}
 						alt=""
-						quality={70}
 						width={500}
 						height={500}
 					/>
