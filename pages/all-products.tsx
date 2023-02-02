@@ -38,7 +38,7 @@ export async function getStaticProps({ locale }: any) {
 				'en',
 			])),
 		},
-		revalidate: 5,
+		
 	};
 }
 
