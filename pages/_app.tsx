@@ -7,6 +7,7 @@ import { SessionProvider } from 'next-auth/react';
 import { appWithTranslation } from 'next-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { Analytics } from '@vercel/analytics/react';
 
 export function App({ Component, pageProps }: AppProps) {
 	const router = useRouter();
@@ -28,20 +29,18 @@ export function App({ Component, pageProps }: AppProps) {
 								variants={{
 									initialState: {
 										opacity: 0,
-										clipPath: 'polygon(0 0,100% 0, 100% 100% , 0% 100%',
 									},
 									animateState: {
 										opacity: 1,
-										clipPath: 'polygon(0 0,100% 0, 100% 100% , 0% 100%',
 									},
 									exitState: {
 										opacity: 0,
-										clipPath: 'polygon(50% 0,50% 0, 50% 100% , 50% 100%',
 									},
 								}}
 								className="base-page-size"
 							>
 								<Component {...pageProps} />
+								<Analytics />
 							</motion.div>
 						</AnimatePresence>
 					</Layout>

@@ -24,17 +24,14 @@ const Auth: React.FC<any> = (props) => {
 				.min(6, 'please inter a valid number with 10 or 15 number'),
 		}),
 		onSubmit: async (values) => {
-			const enteredEmail = formik.values.email;
-			const enteredPassword = formik.values.password;
-
 			if (isLogin) {
-				const result = await signIn('credentials', {
-					email: enteredEmail,
-					password: enteredPassword,
+				const res = await signIn('credentials', {
+					email: values.email,
+					password: values.password,
 					redirect: false,
 				});
 
-				if (!result?.error) {
+				if (!res?.error) {
 					router.replace('/admin/addItems');
 				}
 			}

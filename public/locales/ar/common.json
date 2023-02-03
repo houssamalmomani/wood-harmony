@@ -65,7 +65,7 @@
 
 	"check out": "تأكيد",
 
-	"thank you for choose our product we will contact you as soon as possible": "شكرا لك لإختيارك منتجنا الفريد, سوف نتواصل معك في اقرب وقت ممكن",
+	"thank you for choosing our product we will contact you as soon as possible": "شكرا لك لإختيارك منتجنا الفريد, سوف نتواصل معك في اقرب وقت ممكن",
 
 	"Sorry, Something went wrong please try again!": ".نعتذر عن هذا الخطأ, لم يصلنا طلبك الرجاء المحاولة مرة اخرى",
 
@@ -78,9 +78,18 @@
 	"every item is a unique item so you can only choose one item": "منتجاتنا فريدة من نوعها لذلك لا يمكنك اختيار الا منتج واحد",
 
 	"description": "الوصف",
+
 	"dimensions": "الأبعاد",
+
 	"weight": "الوزن",
+
 	"Add To Cart": "اضف الى السلة",
+
 	"Remove": "ازالة",
-	"g": "ج"
+
+	"g": "ج",
+
+	"price": "السعر",
+
+	"Price": "السعر"
 }

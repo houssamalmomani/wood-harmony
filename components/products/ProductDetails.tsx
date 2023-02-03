@@ -1,9 +1,9 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/effect-flip';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { EffectFlip, Pagination } from 'swiper';
+import 'swiper/css/effect-coverflow';
+import { EffectCoverflow, Pagination } from 'swiper';
 import Btn from '../ui/Btn';
 import { useContext } from 'react';
 import CartContext from '../store/cart-context';
@@ -39,41 +39,47 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 		? props.amount
 		: 0;
 	return (
-		<div className="w-auto ">
+		<div className="w-full px-1 ">
 			<div
 				className="flex flex-col  
-				 						mt-20 md:mt-32 max-w-xl mx-auto "
+				mt-20 md:mt-32 max-w-2xl mx-auto "
 			>
-				<h1 className=" font-Josefin md:text-3xl text-2xl text-center">
+				<h1 className=" font-Josefin md:text-3xl text-2xl text-center overflow-hidden">
 					{props.item.title}
 				</h1>
-				<div className=" w-full p-5">
+				<div className=" w-full my-5">
 					<Swiper
 						style={{
 							/* @ts-ignore */
-							'--swiper-pagination-bullet-inactive-color': '#999999',
+							'--swiper-pagination-bullet-inactive-color': 'white',
 							'--swiper-pagination-bullet-inactive-opacity': '1',
-							'--swiper-pagination-bullet-size': '10px',
-							'--swiper-pagination-bullet-horizontal-gap': '6px',
+							'--swiper-pagination-bullet-size': '6px',
+							'--swiper-pagination-color': '#00ed00',
+							'--swiper-pagination-bullet-horizontal-gap': '5px',
 						}}
-						className=" max-[450px]:h-[27rem] max-[350px]:h-[20rem] "
-						effect={'flip'}
+						className="  "
+						effect={'coverflow'}
 						grabCursor={true}
 						pagination={true}
-						modules={[EffectFlip, Pagination]}
+						centeredSlides={true}
+						slidesPerView={'auto'}
+						modules={[EffectCoverflow, Pagination]}
+						coverflowEffect={{
+							rotate: 50,
+							stretch: 0,
+							depth: 100,
+							modifier: 1,
+							slideShadows: false,
+						}}
 					>
 						{props.item.image.map((images: string, index: number) => (
-							<SwiperSlide
-								key={index}
-								className="rounded-lg "
-							>
+							<SwiperSlide key={index}>
 								<Image
 									src={images}
 									alt="product images"
-									className=" rounded-lg "
+									className="  "
 									width={700}
 									height={700}
-									quality={80}
 									priority
 								/>
 							</SwiperSlide>
@@ -81,25 +87,28 @@ const ProductDetails: React.FC<ProductDetailsProps | any> = (props) => {
 					</Swiper>
 				</div>
 				<div
-					className={`flex flex-col gap-4 px-5 font-Josefin capitalize mb-10 
+					className={`flex flex-col gap-4 px-2 font-Josefin capitalize mb-5 md:text-xl
 					${locale === 'ar' && 'items-end'}`}
 				>
 					<h2 className="flex flex-row">{`${t('description')}: 
 					${t(props.item.description)}`}</h2>
 					<h2>{`	${t('dimensions')}: ${t(props.item.dimensions)}`}</h2>
 					<h2>{`${t('weight')}: ${t(weight)}`}</h2>
+					<h2>{`${t('price')}: ${t(props.item.price)} JOD`}</h2>
 				</div>
-				{amount === 0 ? (
-					<Btn
-						title={t('Add To Cart')}
-						onAdd={cartItemAddHandler.bind(null, props.item, props.id)}
-					/>
-				) : (
-					<Btn
-						title={t('Remove')}
-						onAdd={cartItemRemoveHandler.bind(null, props.id)}
-					/>
-				)}
+				<div className="text-center">
+					{amount === 0 ? (
+						<Btn
+							title={t('Add To Cart')}
+							onAdd={cartItemAddHandler.bind(null, props.item, props.id)}
+						/>
+					) : (
+						<Btn
+							title={t('Remove')}
+							onAdd={cartItemRemoveHandler.bind(null, props.id)}
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	);

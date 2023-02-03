@@ -91,7 +91,7 @@ const CartForm: React.FC = () => {
 						<>
 							<p>
 								{t(
-									'thank you for choose our product we will contact you as soon as possible'
+									'thank you for choosing our product we will contact you as soon as possible'
 								)}
 							</p>
 							<Btn
